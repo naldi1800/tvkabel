@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "777988688567",
+    "project_id": "tvkabel-9a960",
+    "storage_bucket": "tvkabel-9a960.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777988688567:android:f6d8f3cba77dfa2d9b9b32",
+        "android_client_info": {
+          "package_name": "com.example.tvkabel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777988688567-4v53ta1rg3563cr2n34uc4cak5qlnfrs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3CkEXWXvvIpPl7dptTKys-EG1dluUpp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777988688567-4v53ta1rg3563cr2n34uc4cak5qlnfrs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

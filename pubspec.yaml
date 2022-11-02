@@ -1,0 +1,27 @@
+name: tvkabel
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.18.2 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  firebase_core: 2.1.1
+  flutter_svg: ^1.1.6
+  get: 4.6.5
+  wave: ^0.2.2
+  flutter: 
+    sdk: flutter
+  firebase_auth: ^4.1.0
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  assets: 
+    - assets/images/
+  uses-material-design: true
+
