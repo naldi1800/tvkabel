@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/addCustomer/bindings/add_customer_binding.dart';
+import '../modules/addCustomer/views/add_customer_view.dart';
+import '../modules/customer/bindings/customer_binding.dart';
+import '../modules/customer/views/customer_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -10,8 +14,8 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const Home = Routes.HOME;
-  static const Login = Routes.LOGIN;
+  // static const Home = Routes.HOME;
+  // static const Login = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -23,6 +27,16 @@ class AppPages {
       name: _Paths.LOGIN,
       page: () => LoginView(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.CUSTOMER,
+      page: () => const CustomerView(),
+      binding: CustomerBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_CUSTOMER,
+      page: () => const AddCustomerView(),
+      binding: AddCustomerBinding(),
     ),
   ];
 }

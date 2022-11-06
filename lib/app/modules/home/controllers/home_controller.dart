@@ -1,23 +1,28 @@
 import 'package:get/get.dart';
+import 'package:tvkabel/app/routes/app_pages.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  var menuItem = [
+    "Data Pelanggan",
+    "Data Pemesanan",
+    "Data 3",
+    "Data 4",
+    "Data 5",
+  ];
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
+  void onClickMenuItem(int index) {
+    switch (index) {
+      case 0:
+        {
+          Get.offAllNamed(Routes.CUSTOMER);
+        }
+        break;
+      default:
+    }
   }
 
   @override
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

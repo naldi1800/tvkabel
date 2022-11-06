@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:tvkabel/app/controllers/auth_controller.dart';
-import 'package:tvkabel/app/modules/home/views/home_view.dart';
-import 'package:tvkabel/app/routes/app_pages.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -20,11 +17,8 @@ class LoginView extends GetView<LoginController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "Login",
-              style: TextStyle(fontSize: 35),
-            ),
-            const SizedBox(height: 50),
+            Image.asset('assets/images/logo.jpg'),
+            const SizedBox(height: 30),
             Padding(
               padding: EdgeInsets.all(30.0),
               child: Column(

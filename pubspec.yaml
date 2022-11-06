@@ -11,9 +11,10 @@ dependencies:
   flutter_svg: ^1.1.6
   get: 4.6.5
   wave: ^0.2.2
+  firebase_auth: ^4.1.0
+  cloud_firestore: 4.0.4
   flutter: 
     sdk: flutter
-  firebase_auth: ^4.1.0
 
 dev_dependencies: 
   flutter_lints: ^2.0.0

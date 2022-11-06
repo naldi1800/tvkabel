@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "777988688567",
-    "project_id": "tvkabel-9a960",
-    "storage_bucket": "tvkabel-9a960.appspot.com"
+    "project_number": "539963607228",
+    "project_id": "tv-kabel-74adf",
+    "storage_bucket": "tv-kabel-74adf.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:777988688567:android:f6d8f3cba77dfa2d9b9b32",
+        "mobilesdk_app_id": "1:539963607228:android:435e5ab4ba9645194d28b9",
         "android_client_info": {
           "package_name": "com.example.tvkabel"
         }
       },
       "oauth_client": [
         {
-          "client_id": "777988688567-4v53ta1rg3563cr2n34uc4cak5qlnfrs.apps.googleusercontent.com",
+          "client_id": "539963607228-25i7ftr2g0pbdp5fju4st86jj9mcjeke.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC3CkEXWXvvIpPl7dptTKys-EG1dluUpp8"
+          "current_key": "AIzaSyAYldiFfNf8gtdUHhX_1ZFuYmcDXpTFQyM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "777988688567-4v53ta1rg3563cr2n34uc4cak5qlnfrs.apps.googleusercontent.com",
+              "client_id": "539963607228-25i7ftr2g0pbdp5fju4st86jj9mcjeke.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

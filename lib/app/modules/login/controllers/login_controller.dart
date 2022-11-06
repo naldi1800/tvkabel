@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class LoginController extends GetxController {
-  TextEditingController userC = TextEditingController(text: 'user@gmail.com');
-  TextEditingController passC = TextEditingController(text: 'user1234');
+  TextEditingController userC = TextEditingController(text: 'nurul@gmail.com');
+  TextEditingController passC = TextEditingController(text: '123123');
 
   @override
   void onClose() {

@@ -21,15 +21,16 @@ class HomeView extends GetView<HomeController> {
             ),
           )
         ]),
-        body: Column(
-          children: const [
-            Text("Welcome"),
-            // S vgPicture.asset(
-            //   'assets/images/top.svg',
-
-            //   // color: Colors.blue,
-            // ),
-          ],
+        body: ListView.builder(
+          itemCount: controller.menuItem.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+              title: Text(controller.menuItem[index]),
+              onTap: () => {
+                controller.onClickMenuItem(index),
+              },
+            );
+          },
         ),
       ),
     );
