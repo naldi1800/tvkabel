@@ -10,13 +10,57 @@ class AddCustomerView extends GetView<AddCustomerController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AddCustomerView'),
+        title: const Text('Tambah Pelanggan'),
         centerTitle: true,
       ),
       body: Center(
-        child: Text(
-          'AddCustomerView is working',
-          style: TextStyle(fontSize: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Pelanggan", style: TextStyle(fontSize: 25)),
+            SizedBox(height: 15),
+            TextField(
+              controller: controller.nameC,
+              decoration:
+                  InputDecoration(hintText: 'Input Name', label: Text('Name')),
+            ),
+            TextField(
+              controller: controller.genderC,
+              decoration: InputDecoration(
+                  hintText: 'Input Gender', label: Text('Gender')),
+            ),
+            TextField(
+              controller: controller.addressC,
+              decoration: InputDecoration(
+                  hintText: 'Input Address', label: Text('Address')),
+            ),
+            TextField(
+              controller: controller.hpC,
+              decoration:
+                  InputDecoration(hintText: 'Input Telp', label: Text('Telp')),
+            ),
+            TextField(
+              controller: controller.workC,
+              decoration:
+                  InputDecoration(hintText: 'Input Work', label: Text('Work')),
+            ),
+            TextField(
+              controller: controller.iuranC,
+              decoration: InputDecoration(
+                  hintText: 'Input Iuran', label: Text('Iuran')),
+            ),
+            ElevatedButton(
+              child: Text("Save"),
+              onPressed: () => controller.add(
+                controller.nameC.text,
+                controller.genderC.text,
+                controller.addressC.text,
+                controller.hpC.text,
+                controller.workC.text,
+                controller.iuranC.text,
+              ),
+            ),
+          ],
         ),
       ),
     );
