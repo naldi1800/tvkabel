@@ -25,23 +25,66 @@ class AddCustomerView extends GetView<AddCustomerController> {
                   SizedBox(height: 15),
                   TextField(
                     controller: controller.nameC,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Input Name',
                       label: Text('Name'),
                       labelStyle: TextStyle(fontSize: 15),
                     ),
                   ),
-                  TextField(
-                    controller: controller.genderC,
-                    decoration: InputDecoration(
-                      hintText: 'Input Gender',
-                      label: Text('Gender'),
-                      labelStyle: TextStyle(fontSize: 15),
+                  const SizedBox(height: 10),
+                  const SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Gender",
+                      style: TextStyle(fontSize: 15),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  Obx(
+                    () => Row(
+                      children: [
+                        Radio(
+                          value: "Laki-laki",
+                          groupValue: controller.genders.value,
+                          onChanged: (e) {
+                            var v = "Laki-laki".obs;
+                            controller.setGender(v);
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            var v = "Laki-laki".obs;
+                            controller.setGender(v);
+                          },
+                          child: Text(
+                            'Laki-laki',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        Radio(
+                          value: "Perempuan",
+                          groupValue: controller.genders.value,
+                          onChanged: (e) {
+                            var v = "Perempuan".obs;
+                            controller.setGender(v);
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            var v = "Perempuan".obs;
+                            controller.setGender(v);
+                          },
+                          child: Text(
+                            'Perempuan',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   TextField(
                     controller: controller.addressC,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Input Address',
                       label: Text('Address'),
                       labelStyle: TextStyle(fontSize: 15),
@@ -49,7 +92,7 @@ class AddCustomerView extends GetView<AddCustomerController> {
                   ),
                   TextField(
                     controller: controller.hpC,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Input Telp',
                       label: Text('Telp'),
                       labelStyle: TextStyle(fontSize: 15),

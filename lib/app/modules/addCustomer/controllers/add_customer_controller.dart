@@ -10,7 +10,13 @@ class AddCustomerController extends GetxController {
   late TextEditingController workC;
   late TextEditingController iuranC;
 
+  var genders = "Laki-laki".obs;
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  void setGender(RxString v) {
+    genderC.text = v.value;
+    genders.value = v.value;
+  }
 
   void add(String name, String gender, String address, String hp, String work,
       String iuran) async {
@@ -29,7 +35,15 @@ class AddCustomerController extends GetxController {
       Get.defaultDialog(
         title: "Success",
         middleText: "Success for adding Costumer",
-        onConfirm: () => Get.back(),
+        onConfirm: () {
+          nameC.clear();
+          genderC.clear();
+          addressC.clear();
+          hpC.clear();
+          workC.clear();
+          iuranC.clear();
+          Get.back();
+        },
         textConfirm: "Ok",
       );
     } catch (e) {
@@ -45,7 +59,7 @@ class AddCustomerController extends GetxController {
   @override
   void onInit() {
     nameC = TextEditingController();
-    genderC = TextEditingController();
+    genderC = TextEditingController(text: "Laki-laki");
     addressC = TextEditingController();
     hpC = TextEditingController();
     workC = TextEditingController();
