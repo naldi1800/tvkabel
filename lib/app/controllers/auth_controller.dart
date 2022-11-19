@@ -12,6 +12,7 @@ class AuthController extends GetxController {
   Stream<User?> get streamAuthStatus => auth.authStateChanges();
 
   void login(String username, String password) async {
+    print("nyampe sini cuk");
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: username,

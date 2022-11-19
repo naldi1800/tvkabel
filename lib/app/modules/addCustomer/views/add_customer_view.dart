@@ -13,54 +13,82 @@ class AddCustomerView extends GetView<AddCustomerController> {
         title: const Text('Tambah Pelanggan'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Pelanggan", style: TextStyle(fontSize: 25)),
-            SizedBox(height: 15),
-            TextField(
-              controller: controller.nameC,
-              decoration:
-                  InputDecoration(hintText: 'Input Name', label: Text('Name')),
-            ),
-            TextField(
-              controller: controller.genderC,
-              decoration: InputDecoration(
-                  hintText: 'Input Gender', label: Text('Gender')),
-            ),
-            TextField(
-              controller: controller.addressC,
-              decoration: InputDecoration(
-                  hintText: 'Input Address', label: Text('Address')),
-            ),
-            TextField(
-              controller: controller.hpC,
-              decoration:
-                  InputDecoration(hintText: 'Input Telp', label: Text('Telp')),
-            ),
-            TextField(
-              controller: controller.workC,
-              decoration:
-                  InputDecoration(hintText: 'Input Work', label: Text('Work')),
-            ),
-            TextField(
-              controller: controller.iuranC,
-              decoration: InputDecoration(
-                  hintText: 'Input Iuran', label: Text('Iuran')),
-            ),
-            ElevatedButton(
-              child: Text("Save"),
-              onPressed: () => controller.add(
-                controller.nameC.text,
-                controller.genderC.text,
-                controller.addressC.text,
-                controller.hpC.text,
-                controller.workC.text,
-                controller.iuranC.text,
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: SingleChildScrollView(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(
+                children: [
+                  Text("Pelanggan", style: TextStyle(fontSize: 25)),
+                  SizedBox(height: 15),
+                  TextField(
+                    controller: controller.nameC,
+                    decoration: InputDecoration(
+                      hintText: 'Input Name',
+                      label: Text('Name'),
+                      labelStyle: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  TextField(
+                    controller: controller.genderC,
+                    decoration: InputDecoration(
+                      hintText: 'Input Gender',
+                      label: Text('Gender'),
+                      labelStyle: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  TextField(
+                    controller: controller.addressC,
+                    decoration: InputDecoration(
+                      hintText: 'Input Address',
+                      label: Text('Address'),
+                      labelStyle: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  TextField(
+                    controller: controller.hpC,
+                    decoration: InputDecoration(
+                      hintText: 'Input Telp',
+                      label: Text('Telp'),
+                      labelStyle: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  TextField(
+                    controller: controller.workC,
+                    decoration: InputDecoration(
+                      hintText: 'Input Work',
+                      label: Text('Work'),
+                      labelStyle: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  TextField(
+                    controller: controller.iuranC,
+                    decoration: InputDecoration(
+                      hintText: 'Input Iuran',
+                      label: Text('Iuran'),
+                      labelStyle: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    child: Text("Save"),
+                    onPressed: () => controller.add(
+                      controller.nameC.text,
+                      controller.genderC.text,
+                      controller.addressC.text,
+                      controller.hpC.text,
+                      controller.workC.text,
+                      controller.iuranC.text,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

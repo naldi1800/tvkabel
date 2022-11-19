@@ -17,8 +17,8 @@ class LoginView extends GetView<LoginController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/logo.jpg'),
-            const SizedBox(height: 30),
+            Image.asset('assets/images/logo.png'),
+            const SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.all(30.0),
               child: Column(
@@ -71,9 +71,10 @@ class LoginView extends GetView<LoginController> {
                   ),
                   const SizedBox(height: 30),
                   TextButton(
-                    onPressed: () {
-                      authC.login(controller.userC.text, controller.passC.text);
-                    },
+                    onPressed: () => authC.login(
+                      controller.userC.text,
+                      controller.passC.text,
+                    ),
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(

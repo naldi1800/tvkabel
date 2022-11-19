@@ -22,25 +22,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
       stream: authC.streamAuthStatus,
-      builder: (context, snapshot) {
-        print(snapshot);
-        if (snapshot.connectionState == ConnectionState.active) {
-          return FutureBuilder(
-            future: Future.delayed(Duration(seconds: 3)),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return GetMaterialApp(
-                  title: "Application",
-                  initialRoute:
-                      (snapshot.data != null) ? Routes.HOME : Routes.LOGIN,
-                  getPages: AppPages.routes,
-                  debugShowCheckedModeBanner: false,
-                );
-              }
-              return SplashScreen();
-            },
+      builder: (context, snStreamBuilder) {
+        print(snStreamBuilder);
+        if (snStreamBuilder.connectionState == ConnectionState.active) {
+          return GetMaterialApp(
+            title: "Application",
+            initialRoute:
+                (snStreamBuilder.data != null) ? Routes.HOME : Routes.LOGIN,
+            getPages: AppPages.routes,
+            debugShowCheckedModeBanner: false,
           );
         }
+        // else if (snStreamBuilder.connectionState == ConnectionState.waiting) {
+        // return FutureBuilder(
+        //   future: Future.delayed(Duration(seconds: 3)),
+        //   builder: (context, snFutureBuilder) {
+        //     if (snFutureBuilder.connectionState == ConnectionState.done) {
+        //       return mainUtama(snFutureBuilder);
+        //     }
+        //     return SplashScreen();
+        //   },
+        // );
+        // }
         return LoadingScreen();
       },
     );
