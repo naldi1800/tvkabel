@@ -4,6 +4,10 @@ import '../modules/addCustomer/bindings/add_customer_binding.dart';
 import '../modules/addCustomer/views/add_customer_view.dart';
 import '../modules/customer/bindings/customer_binding.dart';
 import '../modules/customer/views/customer_view.dart';
+import '../modules/detailCustomer/bindings/detail_customer_binding.dart';
+import '../modules/detailCustomer/views/detail_customer_view.dart';
+import '../modules/editCustomer/bindings/edit_customer_binding.dart';
+import '../modules/editCustomer/views/edit_customer_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -37,6 +41,16 @@ class AppPages {
       name: _Paths.ADD_CUSTOMER,
       page: () => const AddCustomerView(),
       binding: AddCustomerBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_CUSTOMER,
+      page: () => const EditCustomerView(),
+      binding: EditCustomerBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_CUSTOMER,
+      page: () => const DetailCustomerView(),
+      binding: DetailCustomerBinding(),
     ),
   ];
 }

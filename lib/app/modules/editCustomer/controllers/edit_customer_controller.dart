@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class AddCustomerController extends GetxController {
+class EditCustomerController extends GetxController {
   late TextEditingController nameC;
   late TextEditingController genderC;
   late TextEditingController addressC;
@@ -13,17 +13,24 @@ class AddCustomerController extends GetxController {
   var genders = "Laki-laki".obs;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Future<DocumentSnapshot<Object?>> getData(String docID) async {
+    DocumentReference doc = firestore.collection('costumers').doc(docID);
+    // print(doc);
+    return doc.get();
+  }
+
   void setGender(RxString v) {
     genderC.text = v.value;
     genders.value = v.value;
   }
 
-  void add(String name, String gender, String address, String hp, String work,
-      String iuran) async {
-    CollectionReference costumers = firestore.collection("costumers");
+  void edit(String name, String gender, String address, String hp, String work,
+      String iuran, String docID) async {
+    DocumentReference doc = firestore.collection('costumers').doc(docID);
 
     try {
-      await costumers.add({
+      await doc.update({
         "name": name,
         "gender": gender,
         "address": address,
@@ -34,7 +41,7 @@ class AddCustomerController extends GetxController {
 
       Get.defaultDialog(
         title: "Success",
-        middleText: "Success for adding Costumer",
+        middleText: "Success for editing Costumer",
         onConfirm: () {
           nameC.clear();
           genderC.clear();
@@ -50,7 +57,7 @@ class AddCustomerController extends GetxController {
     } catch (e) {
       Get.defaultDialog(
         title: "Failed",
-        middleText: "Failed for adding Costumer!!",
+        middleText: "Failed for editing Costumer!!",
         onConfirm: () => Get.back(),
         textConfirm: "Ok",
       );

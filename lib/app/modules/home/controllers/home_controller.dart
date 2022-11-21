@@ -14,7 +14,7 @@ class HomeController extends GetxController {
     switch (index) {
       case 0:
         {
-          Get.offAllNamed(Routes.CUSTOMER);
+          Get.toNamed(Routes.CUSTOMER);
         }
         break;
       default:

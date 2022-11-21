@@ -8,6 +8,8 @@ abstract class Routes {
   static const PELANGGANG = _Paths.PELANGGANG;
   static const CUSTOMER = _Paths.CUSTOMER;
   static const ADD_CUSTOMER = _Paths.ADD_CUSTOMER;
+  static const EDIT_CUSTOMER = _Paths.EDIT_CUSTOMER;
+  static const DETAIL_CUSTOMER = _Paths.DETAIL_CUSTOMER;
 }
 
 abstract class _Paths {
@@ -17,4 +19,6 @@ abstract class _Paths {
   static const PELANGGANG = '/pelanggang';
   static const CUSTOMER = '/customer';
   static const ADD_CUSTOMER = '/add-customer';
+  static const EDIT_CUSTOMER = '/edit-customer';
+  static const DETAIL_CUSTOMER = '/detail-customer';
 }

@@ -1,23 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 class CustomerController extends GetxController {
-  //TODO: Implement CustomerController
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  // Future<QuerySnapshot<Object?>> getData1() async {
+  //   CollectionReference costumers = firestore.collection('costumers');
+  //   return costumers.get();
+  // }
+
+  Stream<QuerySnapshot<Object?>> getData() {
+    CollectionReference costumers = firestore.collection('costumers');
+    return costumers.snapshots();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void delete(String docID, String name) {
+    DocumentReference doc = firestore.collection('costumers').doc(docID);
+    try {
+      Get.defaultDialog(
+        title: "Delete",
+        middleText: "Are you sure to delete this data '$name'",
+        onConfirm: () async {
+          await doc.delete();
+          Get.back();
+        },
+        textConfirm: "Yes",
+        textCancel: "No",
+      );
+    } catch (e) {
+      print(e);
+    }
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }
