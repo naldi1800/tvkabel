@@ -28,72 +28,116 @@ class DetailCustomerView extends GetView<DetailCustomerController> {
         ],
       ),
       backgroundColor: Colors.grey,
-      body: Padding(
-        padding: const EdgeInsets.all(3),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: FutureBuilder<DocumentSnapshot<Object?>>(
-                  future: controller.getData(Get.arguments),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      var data = snapshot.data!.data() as Map<String, dynamic>;
-                      print(data);
-                      return Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${data['name']}",
-                                style: TextStyle(fontSize: 30),
-                              ),
-                              Text(
-                                "${data['iuran']}",
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              const SizedBox(height: 15),
-                              Text(
-                                "Alamat : ${data['address']}",
-                                style: TextStyle(fontSize: 15),
-                                textAlign: TextAlign.left,
-                              ),
-                              Text(
-                                "Jenis Kelamin : ${data['gender']}",
-                                style: TextStyle(fontSize: 15),
-                                textAlign: TextAlign.left,
-                              ),
-                              Text(
-                                "No Telp/HP : ${data['hp']}",
-                                style: TextStyle(fontSize: 15),
-                                textAlign: TextAlign.left,
-                              ),
-                              Text(
-                                "Pekerjaan : ${data['work']}",
-                                style: TextStyle(fontSize: 15),
-                                textAlign: TextAlign.left,
-                              ),
-                            ],
+      body: FutureBuilder<DocumentSnapshot<Object?>>(
+        future: controller.getData(Get.arguments),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            var data = snapshot.data!.data() as Map<String, dynamic>;
+            // print(data);
+            return Padding(
+              padding: const EdgeInsets.all(3),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                        width: double.infinity,
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${data['name']}",
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                Text(
+                                  "${data['iuran']}",
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                const SizedBox(height: 15),
+                                viewDataCustomer(
+                                  context: context,
+                                  ket: "Alamat",
+                                  data: data['address'],
+                                ),
+                                viewDataCustomer(
+                                  context: context,
+                                  ket: "Jenis Kelamin",
+                                  data: data['gender'],
+                                ),
+                                viewDataCustomer(
+                                  context: context,
+                                  ket: "No Telp",
+                                  data: data['hp'],
+                                ),
+                                viewDataCustomer(
+                                  context: context,
+                                  ket: "Pekerjaan",
+                                  data: data['work'],
+                                ),
+                                SizedBox(height: 15),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text("Riwayat Pembayaran"),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                    return Center(child: CircularProgressIndicator());
-                  },
+                        )),
+                  ],
                 ),
               ),
-              SizedBox(height: 15),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text("Riwayat Pembayaran"),
-              ),
-            ],
+            );
+          }
+          return Center(child: CircularProgressIndicator());
+          // return SizedBox(
+          //     width: MediaQuery.of(context).size.width,
+          //     height: MediaQuery.of(context).size.height / 1.5,
+          //     child: const Center(
+          //         child: CircularProgressIndicator(
+          //       semanticsLabel: "Waiting",
+          //     )));
+        },
+      ),
+    );
+  }
+
+  Row viewDataCustomer({
+    required BuildContext context,
+    required String ket,
+    required String data,
+  }) {
+    double sizeFont = 15;
+    double widthMax = MediaQuery.of(context).size.width;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: widthMax * 0.3,
+          child: Text(
+            "$ket",
+            style: TextStyle(fontSize: sizeFont),
+            textAlign: TextAlign.left,
           ),
         ),
-      ),
+        Container(
+          width: widthMax * 0.03,
+          child: Text(
+            ":",
+            style: TextStyle(fontSize: sizeFont),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Container(
+          width: widthMax * 0.5,
+          child: Text(
+            " $data",
+            style: TextStyle(fontSize: sizeFont),
+            textAlign: TextAlign.left,
+          ),
+        ),
+      ],
     );
   }
 }

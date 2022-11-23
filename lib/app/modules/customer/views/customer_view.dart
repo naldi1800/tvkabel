@@ -54,11 +54,11 @@ class CustomerView extends GetView<CustomerController> {
                           onPressed: () => Get.toNamed(Routes.EDIT_CUSTOMER,
                               arguments: allDataCostumer[index].id),
                         ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () => controller.delete(
-                              allDataCostumer[index].id, data['name']),
-                        ),
+                        // IconButton(
+                        //   icon: Icon(Icons.delete),
+                        //   onPressed: () => controller.delete(
+                        //       allDataCostumer[index].id, data['name']),
+                        // ),
                       ],
                     ),
                   );

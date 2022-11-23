@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           return GetMaterialApp(
             title: "Application",
             initialRoute:
-                (snStreamBuilder.data != null) ? Routes.HOME : Routes.LOGIN,
+                (snStreamBuilder.data != null) ? Routes.CUSTOMER : Routes.LOGIN,
             getPages: AppPages.routes,
             debugShowCheckedModeBanner: false,
           );
