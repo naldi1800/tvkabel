@@ -39,7 +39,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADD_CUSTOMER,
-      page: () => const AddCustomerView(),
+      page: () => AddCustomerView(),
       binding: AddCustomerBinding(),
     ),
     GetPage(

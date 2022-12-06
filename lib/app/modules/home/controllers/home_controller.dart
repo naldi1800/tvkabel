@@ -4,10 +4,10 @@ import 'package:tvkabel/app/routes/app_pages.dart';
 class HomeController extends GetxController {
   var menuItem = [
     "Data Pelanggan",
-    "Data Pemesanan",
-    "Data 3",
-    "Data 4",
-    "Data 5",
+    "Penagihan Pelanggan", // Pencarian, form (tanggal dan)
+    "Riwayat", // History Pembayaran Harian
+    "Semua Penagihan", // Rekapitulasi (Analog, Digital)
+    "Tentang", // informasi sederhana mengenai source code dan create by
   ];
 
   void onClickMenuItem(int index) {

@@ -13,6 +13,7 @@ dependencies:
   wave: ^0.2.2
   firebase_auth: ^4.1.0
   cloud_firestore: 4.0.4
+  select_form_field: 2.2.0
   flutter: 
     sdk: flutter
 

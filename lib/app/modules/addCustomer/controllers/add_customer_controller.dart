@@ -11,11 +11,68 @@ class AddCustomerController extends GetxController {
   late TextEditingController iuranC;
 
   var genders = "Laki-laki".obs;
-
+  List<Map<String, dynamic>> item = [];
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   void setGender(RxString v) {
     genderC.text = v.value;
     genders.value = v.value;
+  }
+
+  Stream<QuerySnapshot<Object?>> getPakets() {
+    CollectionReference value = firestore.collection('packets');
+    return value.snapshots();
+  }
+
+  void getPackage() {
+    firestore.collection('packets').get().then(
+      (value) {
+        value.docs.forEach((result) {
+          firestore
+              .collection('packets')
+              .doc(result.id)
+              .collection('prices')
+              .get()
+              .then(
+                (subValue) => {
+                  subValue.docs.forEach((subResult) {
+                    item.add({
+                      'value': {
+                        'id': subResult.id,
+                        'price': subResult.data()['price'],
+                      },
+                      'label':
+                          "${result.data()['name']} ${subResult.data()['price']}",
+                    });
+                  })
+                },
+              );
+        });
+      },
+    );
+  }
+
+  Future<List<Object?>> getPrice(
+      List<QueryDocumentSnapshot<Object?>> _package) async {
+    List<Object?> item = [];
+    for (var i = 0; i < _package.length; i++) {
+      var id = _package[i].id;
+      var p = _package[i].data() as Map<String, dynamic>;
+      await firestore
+          .collection('packets')
+          .doc(id)
+          .collection('prices')
+          .get()
+          .then((value) {
+        value.docs.forEach((result) {
+          item.add(result.data());
+          print(result.data());
+          print(item);
+        });
+      });
+    }
+
+    return item;
   }
 
   void add(String name, String gender, String address, String hp, String work,

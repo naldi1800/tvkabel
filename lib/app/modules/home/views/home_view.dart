@@ -13,7 +13,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(actions: [
+        appBar: AppBar(title: Text("Kadun Jaya TV Kabel"), actions: [
           IconButton(
             onPressed: () => authC.logout(),
             icon: Icon(
@@ -35,6 +35,11 @@ class HomeView extends GetView<HomeController> {
             );
           },
         ),
+        // body: Column(
+        //   children: [
+        //     Card(),
+        //   ],
+        // ),
       ),
     );
   }
