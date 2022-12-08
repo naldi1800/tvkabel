@@ -21,9 +21,13 @@ class AddCustomerView extends GetView<AddCustomerController> {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
                 var data = snapshot.data!.docs;
-                var item = [];
+                List<Map<String, dynamic>> item = [];
                 data.forEach((element) {
-                  item.add(element.data() as Map<String, dynamic>);
+                  var x = element.data() as Map<String, dynamic>;
+                  item.add({
+                    'value': element.id,
+                    'label': "${x['name']} - ${x['price']}",
+                  });
                 });
                 print(item);
 
@@ -131,7 +135,7 @@ class AddCustomerView extends GetView<AddCustomerController> {
                           SelectFormField(
                             controller: controller.iuranC,
                             labelText: "Iuran",
-                            items: null,
+                            items: item,
                           ),
                           SizedBox(height: 10),
                           ElevatedButton(

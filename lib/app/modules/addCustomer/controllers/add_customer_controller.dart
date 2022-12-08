@@ -20,59 +20,8 @@ class AddCustomerController extends GetxController {
   }
 
   Stream<QuerySnapshot<Object?>> getPakets() {
-    CollectionReference value = firestore.collection('packets');
+    Query value = firestore.collection('packets').orderBy('price');
     return value.snapshots();
-  }
-
-  void getPackage() {
-    firestore.collection('packets').get().then(
-      (value) {
-        value.docs.forEach((result) {
-          firestore
-              .collection('packets')
-              .doc(result.id)
-              .collection('prices')
-              .get()
-              .then(
-                (subValue) => {
-                  subValue.docs.forEach((subResult) {
-                    item.add({
-                      'value': {
-                        'id': subResult.id,
-                        'price': subResult.data()['price'],
-                      },
-                      'label':
-                          "${result.data()['name']} ${subResult.data()['price']}",
-                    });
-                  })
-                },
-              );
-        });
-      },
-    );
-  }
-
-  Future<List<Object?>> getPrice(
-      List<QueryDocumentSnapshot<Object?>> _package) async {
-    List<Object?> item = [];
-    for (var i = 0; i < _package.length; i++) {
-      var id = _package[i].id;
-      var p = _package[i].data() as Map<String, dynamic>;
-      await firestore
-          .collection('packets')
-          .doc(id)
-          .collection('prices')
-          .get()
-          .then((value) {
-        value.docs.forEach((result) {
-          item.add(result.data());
-          print(result.data());
-          print(item);
-        });
-      });
-    }
-
-    return item;
   }
 
   void add(String name, String gender, String address, String hp, String work,

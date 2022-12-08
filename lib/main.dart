@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:tvkabel/app/controllers/auth_controller.dart';
+import 'package:tvkabel/app/modules/splash_screen/bindings/splash_screen_binding.dart';
 import 'package:tvkabel/app/utils/LoadingScreen.dart';
 import 'package:tvkabel/app/utils/SplashScreen.dart';
 
@@ -18,34 +19,21 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final authC = Get.put(AuthController(), permanent: true);
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: authC.streamAuthStatus,
-      builder: (context, snStreamBuilder) {
-        print(snStreamBuilder);
-        if (snStreamBuilder.connectionState == ConnectionState.active) {
-          return GetMaterialApp(
-            title: "Application",
-            initialRoute:
-                (snStreamBuilder.data != null) ? Routes.CUSTOMER : Routes.LOGIN,
-            getPages: AppPages.routes,
-            debugShowCheckedModeBanner: false,
-          );
-        }
-        // else if (snStreamBuilder.connectionState == ConnectionState.waiting) {
-        // return FutureBuilder(
-        //   future: Future.delayed(Duration(seconds: 3)),
-        //   builder: (context, snFutureBuilder) {
-        //     if (snFutureBuilder.connectionState == ConnectionState.done) {
-        //       return mainUtama(snFutureBuilder);
-        //     }
-        //     return SplashScreen();
-        //   },
-        // );
-        // }
-        return LoadingScreen();
+    return GetMaterialApp(
+      title: "Application",
+      initialRoute: AppPages.INITIAL,
+      onReady: () {
+        print("Start");
+        Future.delayed(const Duration(seconds: 3), () {
+          print("End");
+          Get.offAllNamed(Routes.SUB_MAIN);
+        });
       },
+      getPages: AppPages.routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

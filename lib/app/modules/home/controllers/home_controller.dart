@@ -17,6 +17,11 @@ class HomeController extends GetxController {
           Get.toNamed(Routes.CUSTOMER);
         }
         break;
+      case 1:
+        {
+          Get.toNamed(Routes.BILLING);
+        }
+        break;
       default:
     }
   }

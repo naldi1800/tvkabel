@@ -33,71 +33,67 @@ class DetailCustomerView extends GetView<DetailCustomerController> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             var data = snapshot.data!.data() as Map<String, dynamic>;
+            controller.getPaket(data['iuran']);
             // print(data);
-            return Padding(
-              padding: const EdgeInsets.all(3),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                        width: double.infinity,
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${data['name']}",
-                                  style: TextStyle(fontSize: 30),
-                                ),
-                                Text(
-                                  "${data['iuran']}",
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                                const SizedBox(height: 15),
-                                viewDataCustomer(
-                                  context: context,
-                                  ket: "Alamat",
-                                  data: data['address'],
-                                ),
-                                viewDataCustomer(
-                                  context: context,
-                                  ket: "Jenis Kelamin",
-                                  data: data['gender'],
-                                ),
-                                viewDataCustomer(
-                                  context: context,
-                                  ket: "No Telp",
-                                  data: data['hp'],
-                                ),
-                                viewDataCustomer(
-                                  context: context,
-                                  ket: "Pekerjaan",
-                                  data: data['work'],
-                                ),
-                                SizedBox(height: 15),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text("Riwayat Pembayaran"),
-                                ),
-                              ],
+            return Obx(
+              () => Padding(
+                padding: const EdgeInsets.all(3),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                          width: double.infinity,
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${data['name']}",
+                                    style: const TextStyle(fontSize: 30),
+                                  ),
+                                  Text(
+                                    "Paket ${controller.paket.value['name']} - ${controller.paket.value['price']}",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  const SizedBox(height: 15),
+                                  viewDataCustomer(
+                                    context: context,
+                                    ket: "Alamat",
+                                    data: data['address'],
+                                  ),
+                                  viewDataCustomer(
+                                    context: context,
+                                    ket: "Jenis Kelamin",
+                                    data: data['gender'],
+                                  ),
+                                  viewDataCustomer(
+                                    context: context,
+                                    ket: "No Telp",
+                                    data: data['hp'],
+                                  ),
+                                  viewDataCustomer(
+                                    context: context,
+                                    ket: "Pekerjaan",
+                                    data: data['work'],
+                                  ),
+                                  SizedBox(height: 15),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    child: const Text("Riwayat Pembayaran"),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        )),
-                  ],
+                          )),
+                    ],
+                  ),
                 ),
               ),
             );
           }
           return Center(child: CircularProgressIndicator());
-          // return SizedBox(
-          //     width: MediaQuery.of(context).size.width,
-          //     height: MediaQuery.of(context).size.height / 1.5,
-          //     child: const Center(
-          //         child: CircularProgressIndicator(
-          //       semanticsLabel: "Waiting",
-          //     )));
         },
       ),
     );

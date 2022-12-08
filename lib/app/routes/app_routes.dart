@@ -10,6 +10,9 @@ abstract class Routes {
   static const ADD_CUSTOMER = _Paths.ADD_CUSTOMER;
   static const EDIT_CUSTOMER = _Paths.EDIT_CUSTOMER;
   static const DETAIL_CUSTOMER = _Paths.DETAIL_CUSTOMER;
+  static const BILLING = _Paths.BILLING;
+  static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
+  static const SUB_MAIN = _Paths.SUB_MAIN;
 }
 
 abstract class _Paths {
@@ -21,4 +24,7 @@ abstract class _Paths {
   static const ADD_CUSTOMER = '/add-customer';
   static const EDIT_CUSTOMER = '/edit-customer';
   static const DETAIL_CUSTOMER = '/detail-customer';
+  static const BILLING = '/billing';
+  static const SPLASH_SCREEN = '/splash-screen';
+  static const SUB_MAIN = '/sub-main';
 }

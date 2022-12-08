@@ -11,18 +11,41 @@ class EditCustomerController extends GetxController {
   late TextEditingController iuranC;
 
   var genders = "Laki-laki".obs;
+  var paket = {}.obs;
+  var paketForSelect = [].obs;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<DocumentSnapshot<Object?>> getData(String docID) async {
+  Stream<DocumentSnapshot<Object?>> getData(String docID) {
     DocumentReference doc = firestore.collection('costumers').doc(docID);
     // print(doc);
-    return doc.get();
+    return doc.snapshots();
+  }
+
+  void getPakets() {
+    Query v = firestore.collection('packets').orderBy('price');
+    v.get().then((value) {
+      paketForSelect.value = [];
+      value.docs.forEach((element) {
+        var x = element.data() as Map<String, dynamic>;
+        paketForSelect.add({
+          'value': element.id,
+          'label': "${x['name']} - ${x['price']}",
+        });
+      });
+    });
   }
 
   void setGender(RxString v) {
     genderC.text = v.value;
     genders.value = v.value;
+  }
+
+  void getPaket(String docID) {
+    DocumentReference doc = firestore.collection('packets').doc(docID);
+    doc
+        .get()
+        .then((value) => paket.value = value.data() as Map<String, dynamic>);
   }
 
   void edit(String name, String gender, String address, String hp, String work,
@@ -36,7 +59,7 @@ class EditCustomerController extends GetxController {
         "address": address,
         "hp": hp,
         "work": work,
-        "iuran": iuran,
+        // "iuran": iuran,
       });
 
       Get.defaultDialog(
