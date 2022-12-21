@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:tvkabel/app/routes/app_pages.dart';
 
 class EditCustomerController extends GetxController {
   late TextEditingController nameC;
@@ -9,6 +10,7 @@ class EditCustomerController extends GetxController {
   late TextEditingController hpC;
   late TextEditingController workC;
   late TextEditingController iuranC;
+  late TextEditingController dateC;
 
   var genders = "Laki-laki".obs;
   var paket = {}.obs;
@@ -18,7 +20,6 @@ class EditCustomerController extends GetxController {
 
   Stream<DocumentSnapshot<Object?>> getData(String docID) {
     DocumentReference doc = firestore.collection('costumers').doc(docID);
-    // print(doc);
     return doc.snapshots();
   }
 
@@ -49,9 +50,9 @@ class EditCustomerController extends GetxController {
   }
 
   void edit(String name, String gender, String address, String hp, String work,
-      String iuran, String docID) async {
+      String iuran, String date, String docID) async {
     DocumentReference doc = firestore.collection('costumers').doc(docID);
-
+    DateTime d = DateTime.parse(date);
     try {
       await doc.update({
         "name": name,
@@ -59,7 +60,7 @@ class EditCustomerController extends GetxController {
         "address": address,
         "hp": hp,
         "work": work,
-        // "iuran": iuran,
+        "date": d,
       });
 
       Get.defaultDialog(
@@ -72,6 +73,7 @@ class EditCustomerController extends GetxController {
           hpC.clear();
           workC.clear();
           iuranC.clear();
+          dateC.clear();
           Get.back();
           Get.back();
         },
@@ -95,6 +97,7 @@ class EditCustomerController extends GetxController {
     hpC = TextEditingController();
     workC = TextEditingController();
     iuranC = TextEditingController();
+    dateC = TextEditingController();
     super.onInit();
   }
 
@@ -106,6 +109,7 @@ class EditCustomerController extends GetxController {
     hpC.dispose();
     workC.dispose();
     iuranC.dispose();
+    dateC.dispose();
     super.onClose();
   }
 }

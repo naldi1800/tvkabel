@@ -5,9 +5,9 @@ class DetailCustomerController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   var paket = {}.obs;
 
-  Future<DocumentSnapshot<Object?>> getData(String docID) async {
+  Stream<DocumentSnapshot<Object?>> getData(String docID) {
     DocumentReference doc = firestore.collection('costumers').doc(docID);
-    return doc.get();
+    return doc.snapshots();
   }
 
   void getPaket(String docID) {
@@ -25,6 +25,7 @@ class DetailCustomerController extends GetxController {
         middleText: "Are you sure to delete this data",
         onConfirm: () async {
           await doc.delete();
+          Get.back();
           Get.back();
         },
         textConfirm: "Yes",

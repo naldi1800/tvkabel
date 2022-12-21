@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:select_form_field/select_form_field.dart';
 
 import '../controllers/add_customer_controller.dart';
@@ -29,7 +30,7 @@ class AddCustomerView extends GetView<AddCustomerController> {
                     'label': "${x['name']} - ${x['price']}",
                   });
                 });
-                print(item);
+                // print(item);
 
                 return SafeArea(
                   child: Padding(
@@ -137,9 +138,35 @@ class AddCustomerView extends GetView<AddCustomerController> {
                             labelText: "Iuran",
                             items: item,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
+                          TextField(
+                            controller: controller.dateC,
+                            decoration: const InputDecoration(
+                              icon: Icon(Icons.calendar_today),
+                              labelText: "Tanggal Pemasangan",
+                            ),
+                            readOnly: true,
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime.now());
+
+                              if (pickedDate != null) {
+                                print(pickedDate);
+                                String formattedDate =
+                                    DateFormat('yyyy-MM-dd').format(pickedDate);
+                                print(formattedDate);
+                                controller.dateC.text = formattedDate;
+                              } else {
+                                print("Date is not selected");
+                              }
+                            },
+                          ),
                           ElevatedButton(
                             child: Text("Save"),
+                            // onPressed: () => controller.tes(),
                             onPressed: () => controller.add(
                               controller.nameC.text,
                               controller.genders.value,
@@ -147,6 +174,7 @@ class AddCustomerView extends GetView<AddCustomerController> {
                               controller.hpC.text,
                               controller.workC.text,
                               controller.iuranC.text,
+                              controller.dateC.text,
                             ),
                           ),
                         ],

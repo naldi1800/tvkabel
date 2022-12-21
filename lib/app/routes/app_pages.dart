@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/addCustomer/bindings/add_customer_binding.dart';
 import '../modules/addCustomer/views/add_customer_view.dart';
+import '../modules/add_billing/bindings/add_billing_binding.dart';
+import '../modules/add_billing/views/add_billing_view.dart';
 import '../modules/billing/bindings/billing_binding.dart';
 import '../modules/billing/views/billing_view.dart';
 import '../modules/customer/bindings/customer_binding.dart';
@@ -72,6 +74,11 @@ class AppPages {
       name: _Paths.SUB_MAIN,
       page: () => SubMainView(),
       binding: SubMainBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_BILLING,
+      page: () => const AddBillingView(),
+      binding: AddBillingBinding(),
     ),
   ];
 }

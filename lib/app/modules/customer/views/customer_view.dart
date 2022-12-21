@@ -43,7 +43,7 @@ class CustomerView extends GetView<CustomerController> {
                       style: TextStyle(fontSize: 20),
                     ),
                     subtitle: Text(
-                      "${data['address']}",
+                      "${data['id']}",
                       style: TextStyle(fontSize: 15),
                     ),
                     trailing: Row(

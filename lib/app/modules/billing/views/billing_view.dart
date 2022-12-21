@@ -16,7 +16,7 @@ class BillingView extends GetView<BillingController> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(5.0),
         child: StreamBuilder<QuerySnapshot<Object?>>(
           stream: controller.getData(),
           builder: (context, snapshot) {
@@ -28,23 +28,21 @@ class BillingView extends GetView<BillingController> {
                   var data =
                       allDataCostumer[index].data() as Map<String, dynamic>;
                   return ListTile(
-                    // onTap: () => Get.toNamed(Routes.DETAIL_CUSTOMER,
-                    //     arguments: allDataCostumer[index].id),
+                    onTap: () => Get.toNamed(Routes.ADD_BILLING,
+                        arguments: allDataCostumer[index].id),
                     title: Text(
                       "${data['name']}",
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                     subtitle: Text(
                       "${data['address']}",
-                      style: TextStyle(fontSize: 15),
+                      style: const TextStyle(fontSize: 15),
                     ),
                   );
                 },
               );
             }
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),

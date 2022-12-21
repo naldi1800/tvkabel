@@ -11,7 +11,7 @@ class CustomerController extends GetxController {
   // }
 
   Stream<QuerySnapshot<Object?>> getData() {
-    CollectionReference costumers = firestore.collection('costumers');
+    Query costumers = firestore.collection('costumers').orderBy('id');
     return costumers.snapshots();
   }
 
