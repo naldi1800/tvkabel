@@ -24,33 +24,56 @@ class AddBillingController extends GetxController {
         .then((value) => paket.value = value.data() as Map<String, dynamic>);
   }
 
-  void getPembayaran(Timestamp date, String id) {
+  void getPembayaran(Timestamp date, String id) async {
     var dt = DateFormat('yyyy-MM-dd').format(date.toDate());
     var now = DateTime.now();
 
     // int t =
     //     now.millisecondsSinceEpoch - DateTime.parse(dt).millisecondsSinceEpoch;
     // var dates = t / (3600 * 24 * 12);
-    var end = DateTime(
-      DateTime.parse(dt).year,
-      DateTime.parse(dt).month - 1,
-      DateTime.parse(dt).day,
-    );
-    print(now);
+
+    Duration diff = now.difference(DateTime.parse(dt));
+    int bln = (diff.inDays ~/ 30).toInt();
+    List<String> bills = [];
+    for (var i = 1; i <= bln; i++) {
+      var toBill = DateTime(
+        DateTime.parse(dt).year,
+        DateTime.parse(dt).month + i,
+        DateTime.parse(dt).day,
+      );
+      bills.add(DateFormat("yyyy-MM").format(toBill));
+    }
+
+    // print("${diff.inDays} Hari | $bln Bulan");
+
+    print(bills);
 
     Query bill =
         firestore.collection("billings").where('id_customer', isEqualTo: id);
     bill.get().then((value) {
-      print("oke");
+      // print("oke");
       value.docs.forEach((element) {
         var data = element.data() as Map<String, dynamic>;
         var blnByr = data['bulan_bayar'];
-        print(blnByr);
+        for (var i = 0; i < bills.length; i++) {
+          if (bills[i] == blnByr) {
+            bills.removeAt(i);
+          }
+        }
+        // print(bills[index] == blnByr);
+        // print(blnByr);
       });
+      for (var i = 0; i < bills.length; i++) {
+        item.value.add({
+          'value': bills[i],
+          'label': bills[i],
+        });
+      }
+      print(item.value.map((e) => Map<String, dynamic>.from(e)).toSet());
     });
   }
 
-  void add(String id, String date, String bulan) async {
+  void add(String id, String bulan) async {
     CollectionReference bill = firestore.collection("billings");
 
     try {

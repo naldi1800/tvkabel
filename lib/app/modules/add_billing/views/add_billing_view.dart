@@ -23,6 +23,7 @@ class AddBillingView extends GetView<AddBillingController> {
             controller.getPaket(data['iuran']);
             controller.getPembayaran(data['date'], data['id']);
             // print(data);
+
             return Obx(
               () => Padding(
                 padding: const EdgeInsets.all(3),
@@ -53,24 +54,38 @@ class AddBillingView extends GetView<AddBillingController> {
                                     value:
                                         "${controller.paket.value['name']} - ${controller.paket.value['price']}",
                                   ),
-                                  SelectFormField(
-                                    controller: controller.billingC,
-                                    labelText: 'Pembayaran',
-                                    items: [
-                                      {
-                                        'value': 'box',
-                                        'label': 'Box',
-                                      }
-                                    ],
+                                  Obx(
+                                    () => SelectFormField(
+                                      controller: controller.billingC,
+                                      labelText: 'Pembayaran',
+                                      autofocus: true,
+                                      items: (controller.item.isNotEmpty)
+                                          ? controller.item
+                                              .map((e) =>
+                                                  Map<String, dynamic>.from(e))
+                                              .toList()
+                                          : [
+                                              {
+                                                'value': "",
+                                                'label':
+                                                    'tidak ada yg perlu di bayar'
+                                              }
+                                            ],
+                                    ),
                                   ),
                                   const SizedBox(height: 15),
                                   const SizedBox(height: 15),
                                   ElevatedButton(
                                     onPressed: () {
-                                      controller.add(
-                                          Get.arguments, '', '11-2022');
+                                      if (controller.item.isEmpty ||
+                                          controller.billingC.text != "") {
+                                        Get.back();
+                                      } else {
+                                        controller.add(data['id'],
+                                            controller.billingC.text);
+                                      }
                                     },
-                                    child: const Text("Riwayat Pembayaran"),
+                                    child: const Text("Bayar"),
                                   ),
                                 ],
                               ),

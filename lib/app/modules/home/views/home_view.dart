@@ -35,11 +35,6 @@ class HomeView extends GetView<HomeController> {
             );
           },
         ),
-        // body: Column(
-        //   children: [
-        //     Card(),
-        //   ],
-        // ),
       ),
     );
   }

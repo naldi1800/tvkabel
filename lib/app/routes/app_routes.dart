@@ -14,6 +14,7 @@ abstract class Routes {
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const SUB_MAIN = _Paths.SUB_MAIN;
   static const ADD_BILLING = _Paths.ADD_BILLING;
+  static const HISTORY = _Paths.HISTORY;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const SPLASH_SCREEN = '/splash-screen';
   static const SUB_MAIN = '/sub-main';
   static const ADD_BILLING = '/add-billing';
+  static const HISTORY = '/history';
 }
