@@ -5,7 +5,9 @@ class HistoryController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Stream<QuerySnapshot<Object?>> getData() {
-    CollectionReference costumers = firestore.collection('billings');
+    Query costumers = firestore
+        .collection('billings')
+        .orderBy("tanggal_pembayaran", descending: true);
     return costumers.snapshots();
   }
 }

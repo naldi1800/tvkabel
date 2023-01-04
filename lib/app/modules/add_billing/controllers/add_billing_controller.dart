@@ -71,6 +71,20 @@ class AddBillingController extends GetxController {
       }
       print(item.value.map((e) => Map<String, dynamic>.from(e)).toSet());
     });
+
+    if (item.isEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        Get.defaultDialog(
+          title: "Info",
+          middleText: "Tidak ada pembayaran tersedia",
+          onConfirm: () {
+            Get.back();
+            Get.back();
+          },
+          textConfirm: "Ok",
+        );
+      });
+    }
   }
 
   void add(String id, String bulan) async {

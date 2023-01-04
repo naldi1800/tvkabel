@@ -68,7 +68,7 @@ class AddBillingView extends GetView<AddBillingController> {
                                               {
                                                 'value': "",
                                                 'label':
-                                                    'tidak ada yg perlu di bayar'
+                                                    "tidak ada yg perlu di bayar"
                                               }
                                             ],
                                     ),
@@ -80,6 +80,7 @@ class AddBillingView extends GetView<AddBillingController> {
                                       if (controller.item.isEmpty ||
                                           controller.billingC.text != "") {
                                         Get.back();
+                                        // }
                                       } else {
                                         controller.add(data['id'],
                                             controller.billingC.text);

@@ -27,6 +27,16 @@ class HomeController extends GetxController {
           Get.toNamed(Routes.HISTORY);
         }
         break;
+      case 3:
+        {
+          Get.toNamed(Routes.BILLING_RECAPITULATION);
+        }
+        break;
+      case 4:
+        {
+          Get.toNamed(Routes.ABOUT);
+        }
+        break;
     }
   }
 

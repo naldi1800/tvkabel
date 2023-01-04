@@ -35,7 +35,7 @@ class BillingView extends GetView<BillingController> {
                       style: const TextStyle(fontSize: 20),
                     ),
                     subtitle: Text(
-                      "${data['address']}",
+                      "${data['id']}",
                       style: const TextStyle(fontSize: 15),
                     ),
                   );

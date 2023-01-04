@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:tvkabel/app/controllers/auth_controller.dart';
+import '/app/controllers/auth_controller.dart';
 import 'app/routes/app_pages.dart';
 import 'package:firebase_core/firebase_core.dart';
+// import 'package:month_year_picker/month_year_picker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,11 @@ class MyApp extends StatelessWidget {
         //   Get.offAllNamed(Routes.SUB_MAIN);
         // }); // Active this for Splash Screen
       },
+      // localizationsDelegates: const [
+      //   // GlobalWidgetsLocalizations.delegate,
+      //   // GlobalMaterialLocalizations.delegate,
+      //   // MonthYearPickerLocalizations.delegate,
+      // ],
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );

@@ -8,7 +8,7 @@ import '../controllers/login_controller.dart';
 class LoginView extends GetView<LoginController> {
   final authC = Get.find<AuthController>();
 
-  LoginView({super.key});
+  LoginView();
 
   @override
   Widget build(BuildContext context) {

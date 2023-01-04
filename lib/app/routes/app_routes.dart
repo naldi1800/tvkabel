@@ -15,6 +15,8 @@ abstract class Routes {
   static const SUB_MAIN = _Paths.SUB_MAIN;
   static const ADD_BILLING = _Paths.ADD_BILLING;
   static const HISTORY = _Paths.HISTORY;
+  static const ABOUT = _Paths.ABOUT;
+  static const BILLING_RECAPITULATION = _Paths.BILLING_RECAPITULATION;
 }
 
 abstract class _Paths {
@@ -31,4 +33,6 @@ abstract class _Paths {
   static const SUB_MAIN = '/sub-main';
   static const ADD_BILLING = '/add-billing';
   static const HISTORY = '/history';
+  static const ABOUT = '/about';
+  static const BILLING_RECAPITULATION = '/billing-recapitulation';
 }

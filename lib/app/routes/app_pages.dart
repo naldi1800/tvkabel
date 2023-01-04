@@ -1,11 +1,15 @@
 import 'package:get/get.dart';
 
+import '../modules/about/bindings/about_binding.dart';
+import '../modules/about/views/about_view.dart';
 import '../modules/addCustomer/bindings/add_customer_binding.dart';
 import '../modules/addCustomer/views/add_customer_view.dart';
 import '../modules/add_billing/bindings/add_billing_binding.dart';
 import '../modules/add_billing/views/add_billing_view.dart';
 import '../modules/billing/bindings/billing_binding.dart';
 import '../modules/billing/views/billing_view.dart';
+import '../modules/billing_recapitulation/bindings/billing_recapitulation_binding.dart';
+import '../modules/billing_recapitulation/views/billing_recapitulation_view.dart';
 import '../modules/customer/bindings/customer_binding.dart';
 import '../modules/customer/views/customer_view.dart';
 import '../modules/detailCustomer/bindings/detail_customer_binding.dart';
@@ -86,6 +90,16 @@ class AppPages {
       name: _Paths.HISTORY,
       page: () => const HistoryView(),
       binding: HistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABOUT,
+      page: () => const AboutView(),
+      binding: AboutBinding(),
+    ),
+    GetPage(
+      name: _Paths.BILLING_RECAPITULATION,
+      page: () => const BillingRecapitulationView(),
+      binding: BillingRecapitulationBinding(),
     ),
   ];
 }
