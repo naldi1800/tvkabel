@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import '/app/routes/app_pages.dart';
 
 import '../controllers/splash_screen_controller.dart';
 
@@ -19,7 +18,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
               child: SizedBox(
                 width: 350,
                 height: 350,
-                child: Image.asset('assets/images/logo.jpg'),
+                child: Image.asset('assets/images/logo.png'),
               ),
             ),
             Image.asset('assets/images/welcome..jpg'),

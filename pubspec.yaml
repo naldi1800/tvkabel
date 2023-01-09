@@ -15,11 +15,11 @@ dependencies:
   cloud_firestore: 4.0.4
   select_form_field: 2.2.0
   intl: 0.17.0
-  # month_year_picker: 0.2.0+3
   pdf: 3.8.4
   printing: 5.9.3
   path_provider: 2.0.11
-  #open_file: 3.2.1
+  simple_month_year_picker: 0.0.2
+  jiffy: 5.0.0
   flutter: 
     sdk: flutter
 
@@ -31,5 +31,14 @@ dev_dependencies:
 flutter: 
   assets: 
     - assets/images/
+  fonts: 
+    - family: arvo
+      fonts: 
+        - asset: assets/fonts/Arvo-Regular.ttf
+        - asset: assets/fonts/Arvo-Regular.ttf
+          weight: 500
+    - family: EastSea
+      fonts: 
+        - asset: assets/fonts/EastSeaDokdo.ttf
   uses-material-design: true
 

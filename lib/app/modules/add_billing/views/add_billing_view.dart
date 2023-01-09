@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:select_form_field/select_form_field.dart';
+import 'package:tvkabel/app/utils/ui.dart';
 
 import '../controllers/add_billing_controller.dart';
 
@@ -12,9 +13,14 @@ class AddBillingView extends GetView<AddBillingController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Input Pembayaran'),
+        title: const Text(
+          'Input Pembayaran',
+          style: TextStyle(fontFamily: 'alvo', color: ui.object),
+        ),
         centerTitle: true,
+        backgroundColor: ui.foreground,
       ),
+      backgroundColor: ui.background,
       body: FutureBuilder<DocumentSnapshot<Object?>>(
         future: controller.getData(Get.arguments),
         builder: (context, snapshot) {
@@ -22,6 +28,7 @@ class AddBillingView extends GetView<AddBillingController> {
             var data = snapshot.data!.data() as Map<String, dynamic>;
             controller.getPaket(data['iuran']);
             controller.getPembayaran(data['date'], data['id']);
+            // await Future.delayed(Duration(seconds: 3));
             // print(data);
 
             return Obx(
@@ -33,6 +40,7 @@ class AddBillingView extends GetView<AddBillingController> {
                       SizedBox(
                           width: double.infinity,
                           child: Card(
+                            color: ui.foreground,
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
@@ -59,6 +67,8 @@ class AddBillingView extends GetView<AddBillingController> {
                                       controller: controller.billingC,
                                       labelText: 'Pembayaran',
                                       autofocus: true,
+                                      style: const TextStyle(
+                                          color: ui.object, fontFamily: 'arvo'),
                                       items: (controller.item.isNotEmpty)
                                           ? controller.item
                                               .map((e) =>
@@ -78,15 +88,22 @@ class AddBillingView extends GetView<AddBillingController> {
                                   ElevatedButton(
                                     onPressed: () {
                                       if (controller.item.isEmpty ||
-                                          controller.billingC.text != "") {
+                                          controller.billingC.text == "") {
                                         Get.back();
-                                        // }
                                       } else {
                                         controller.add(data['id'],
                                             controller.billingC.text);
                                       }
                                     },
-                                    child: const Text("Bayar"),
+                                    style: const ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                ui.action)),
+                                    child: const Text(
+                                      "Bayar",
+                                      style: TextStyle(
+                                          color: ui.object, fontFamily: 'arvo'),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -105,31 +122,35 @@ class AddBillingView extends GetView<AddBillingController> {
     );
   }
 
-  TextFormField textFieldBilling(
+  Widget textFieldBilling(
       {required BuildContext context,
       required String ket,
-      required String value,
-      TextEditingController? controller}) {
-    return TextFormField(
-      readOnly: true,
-      controller: (controller != null)
-          ? controller
-          : TextEditingController(text: value),
-      decoration: InputDecoration(
-        // label: Text('Nama'),
-        border: InputBorder.none,
-        prefix: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.2,
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(ket),
-              ),
-              Text(':  '),
-            ],
+      required String value}) {
+    var style = TextStyle(fontFamily: 'arvo', color: ui.object);
+    return Row(
+      children: [
+        Expanded(
+          flex: 3,
+          child: Text(
+            ket,
+            style: style,
           ),
         ),
-      ),
+        Expanded(
+          flex: 1,
+          child: Text(
+            ':',
+            style: style,
+          ),
+        ),
+        Expanded(
+          flex: 6,
+          child: Text(
+            value,
+            style: style,
+          ),
+        )
+      ],
     );
   }
 }

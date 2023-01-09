@@ -17,6 +17,7 @@ abstract class Routes {
   static const HISTORY = _Paths.HISTORY;
   static const ABOUT = _Paths.ABOUT;
   static const BILLING_RECAPITULATION = _Paths.BILLING_RECAPITULATION;
+  static const BILLING_RE_SHOW = _Paths.BILLING_RE_SHOW;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const HISTORY = '/history';
   static const ABOUT = '/about';
   static const BILLING_RECAPITULATION = '/billing-recapitulation';
+  static const BILLING_RE_SHOW = '/billing-re-show';
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:select_form_field/select_form_field.dart';
+import 'package:tvkabel/app/utils/ui.dart';
 
 import '../controllers/edit_customer_controller.dart';
 
@@ -13,9 +14,17 @@ class EditCustomerView extends GetView<EditCustomerController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sunting Pelanggan'),
+        title: const Text(
+          'Sunting Pelanggan',
+          style: TextStyle(
+            fontFamily: 'arvo',
+            color: ui.object,
+          ),
+        ),
         centerTitle: true,
+        backgroundColor: ui.foreground,
       ),
+      backgroundColor: ui.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
@@ -53,14 +62,21 @@ class EditCustomerView extends GetView<EditCustomerController> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             const Text("Edit Pelanggan",
-                                style: TextStyle(fontSize: 25)),
+                                style:
+                                    TextStyle(fontSize: 25, color: ui.object)),
                             SizedBox(height: 15),
                             TextField(
                               controller: controller.nameC,
+                              style: const TextStyle(
+                                color: ui.object,
+                              ),
                               decoration: const InputDecoration(
                                 hintText: 'Input Name',
                                 label: Text('Name'),
-                                labelStyle: TextStyle(fontSize: 15),
+                                labelStyle: TextStyle(
+                                  fontSize: 15,
+                                  color: ui.action,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -68,7 +84,10 @@ class EditCustomerView extends GetView<EditCustomerController> {
                               width: double.infinity,
                               child: Text(
                                 "Gender",
-                                style: TextStyle(fontSize: 15),
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: ui.action,
+                                ),
                                 textAlign: TextAlign.start,
                               ),
                             ),
@@ -89,7 +108,10 @@ class EditCustomerView extends GetView<EditCustomerController> {
                                   },
                                   child: const Text(
                                     'Laki-laki',
-                                    style: TextStyle(fontSize: 12),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ui.object,
+                                    ),
                                   ),
                                 ),
                                 Radio(
@@ -107,54 +129,71 @@ class EditCustomerView extends GetView<EditCustomerController> {
                                   },
                                   child: const Text(
                                     'Perempuan',
-                                    style: TextStyle(fontSize: 12),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ui.object,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                             TextField(
                               controller: controller.addressC,
+                              style: TextStyle(
+                                color: ui.object,
+                              ),
                               decoration: const InputDecoration(
                                 hintText: 'Input Address',
                                 label: Text('Address'),
-                                labelStyle: TextStyle(fontSize: 15),
+                                labelStyle: TextStyle(
+                                  fontSize: 15,
+                                  color: ui.action,
+                                ),
                               ),
                             ),
                             TextField(
                               controller: controller.hpC,
+                              style: TextStyle(
+                                color: ui.object,
+                              ),
                               decoration: const InputDecoration(
                                 hintText: 'Input Telp',
                                 label: Text('Telp'),
-                                labelStyle: TextStyle(fontSize: 15),
+                                labelStyle: TextStyle(
+                                  fontSize: 15,
+                                  color: ui.action,
+                                ),
                               ),
                             ),
                             TextField(
                               controller: controller.workC,
+                              style: TextStyle(
+                                color: ui.object,
+                              ),
                               decoration: const InputDecoration(
                                 hintText: 'Input Work',
                                 label: Text('Work'),
-                                labelStyle: TextStyle(fontSize: 15),
+                                labelStyle: TextStyle(
+                                  fontSize: 15,
+                                  color: ui.action,
+                                ),
                               ),
                             ),
-                            // TextField(
-                            //   controller: controller.iuranC,
-                            //   decoration: InputDecoration(
-                            //     hintText: 'Input Iuran',
-                            //     label: Text('Iuran'),
-                            //     labelStyle: TextStyle(fontSize: 15),
-                            //   ),
-                            // ),
-                            // SelectFormField(
-                            //   controller: controller.iuranC,
-                            //   labelText: "Iuran",
-                            //   items: item,
-                            // ),
                             const SizedBox(height: 10),
                             TextField(
                               controller: controller.dateC,
+                              style: const TextStyle(
+                                color: ui.object,
+                              ),
                               decoration: const InputDecoration(
-                                icon: Icon(Icons.calendar_today),
+                                icon: Icon(
+                                  Icons.calendar_today,
+                                  color: ui.action,
+                                ),
                                 labelText: "Tanggal Pemasangan",
+                                labelStyle: TextStyle(
+                                  color: ui.action,
+                                ),
                               ),
                               readOnly: true,
                               onTap: () async {
@@ -177,9 +216,16 @@ class EditCustomerView extends GetView<EditCustomerController> {
                               },
                             ),
                             const SizedBox(height: 10),
-
                             ElevatedButton(
-                              child: const Text("Save"),
+                              style: const ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStatePropertyAll(ui.action)),
+                              child: const Text(
+                                "Save",
+                                style: TextStyle(
+                                  color: ui.object,
+                                ),
+                              ),
                               onPressed: () => controller.edit(
                                 controller.nameC.text,
                                 controller.genders.value,

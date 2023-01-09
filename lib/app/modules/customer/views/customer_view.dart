@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:tvkabel/app/routes/app_pages.dart';
+import 'package:tvkabel/app/utils/ui.dart';
 
 import '../controllers/customer_controller.dart';
 
@@ -12,84 +13,132 @@ class CustomerView extends GetView<CustomerController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Data Pelanggan'),
+        title: const Text(
+          'Data Pelanggan',
+          style: TextStyle(fontFamily: 'alvo', color: ui.object),
+        ),
         centerTitle: true,
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.search),
-        //     onPressed: () {
-        //       controller.isSearch.value = !controller.isSearch.value;
-        //     },
-        //   )
-        // ],
+        backgroundColor: ui.foreground,
       ),
+      backgroundColor: ui.background,
       body: Padding(
-        padding: EdgeInsets.all(5.0),
+        padding: const EdgeInsets.only(top: 5, bottom: 5),
         child: StreamBuilder<QuerySnapshot<Object?>>(
           stream: controller.getData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
-              var allDataCostumer = snapshot.data!.docs;
-              return ListView.builder(
-                itemCount: allDataCostumer.length,
-                itemBuilder: (context, index) {
-                  var data =
-                      allDataCostumer[index].data() as Map<String, dynamic>;
-                  return ListTile(
-                    onTap: () => Get.toNamed(Routes.DETAIL_CUSTOMER,
-                        arguments: allDataCostumer[index].id),
-                    title: Text(
-                      "${data['name']}",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    subtitle: Text(
-                      "${data['id']}",
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () => Get.toNamed(Routes.EDIT_CUSTOMER,
-                              arguments: allDataCostumer[index].id),
+              controller.allDataCostumer = snapshot.data!.docs;
+              controller.allData.value = controller.allDataCostumer;
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: controller.searchC,
+                      style:
+                          const TextStyle(fontFamily: 'arto', color: ui.object),
+                      onChanged: (value) {
+                        controller.allData.value = controller.allDataCostumer;
+                        controller.filter(value);
+                      },
+                      decoration: const InputDecoration(
+                        labelText: "Search",
+                        hintText: "id or name",
+                        labelStyle: TextStyle(color: ui.object),
+                        hintStyle: TextStyle(color: ui.object),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: ui.object,
                         ),
-                        // IconButton(
-                        //   icon: Icon(Icons.delete),
-                        //   onPressed: () => controller.delete(
-                        //       allDataCostumer[index].id, data['name']),
-                        // ),
-                      ],
+                        fillColor: ui.action,
+                      ),
                     ),
-                  );
-                },
+                  ),
+                  Expanded(
+                    child: Obx(
+                      () => ListView.separated(
+                        itemCount: controller.allData.value.length,
+                        separatorBuilder: (context, index) {
+                          return const Divider(color: ui.action);
+                        },
+                        itemBuilder: (context, index) {
+                          var data = controller.allData.value[index].data()
+                              as Map<String, dynamic>;
+                          return on(
+                            controller.allData.value[index].id,
+                            index,
+                            data,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               );
             }
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           },
         ),
-        // Stack(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        // children: [
-        // Visibility(
-        //   visible: controller.isSearch.value,
-        //   child: Container(
-        //     padding: EdgeInsets.symmetric(horizontal: 20),
-        //     child: TextField(
-        //       controller: controller.searchC,
-        //       decoration: InputDecoration(hintText: "Search..."),
-        //     ),
-        //   ),
-        // ),
-
-        // ],
-        // ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        backgroundColor: ui.action,
+        child: Icon(
+          Icons.add,
+          color: ui.object,
+        ),
         onPressed: () => Get.toNamed(Routes.ADD_CUSTOMER),
+      ),
+    );
+  }
+
+  Widget on(var id, int index, var data) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 10,
+        right: 10,
+      ),
+      child: Container(
+        width: double.infinity,
+        color: ui.foreground,
+        child: ListTile(
+          onTap: () => Get.toNamed(
+            Routes.DETAIL_CUSTOMER,
+            arguments: id,
+          ),
+          title: Text(
+            "${data['name']}",
+            style: const TextStyle(
+              fontSize: 20,
+              fontFamily: 'alvo',
+              color: ui.object,
+            ),
+          ),
+          subtitle: Text(
+            "${data['id']}",
+            style: const TextStyle(
+              fontSize: 15,
+              fontFamily: 'alvo',
+              color: ui.object,
+            ),
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.edit,
+                  color: ui.action,
+                ),
+                onPressed: () => Get.toNamed(
+                  Routes.EDIT_CUSTOMER,
+                  arguments: id,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

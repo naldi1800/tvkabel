@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:select_form_field/select_form_field.dart';
+import 'package:tvkabel/app/utils/ui.dart';
 
 import '../controllers/add_customer_controller.dart';
 
@@ -13,9 +14,17 @@ class AddCustomerView extends GetView<AddCustomerController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tambah Pelanggan'),
+        title: const Text(
+          'Tambah Pelanggan',
+          style: TextStyle(
+            fontFamily: 'arvo',
+            color: ui.object,
+          ),
+        ),
         centerTitle: true,
+        backgroundColor: ui.foreground,
       ),
+      backgroundColor: ui.background,
       body: StreamBuilder(
           stream: controller.getPakets(),
           builder: (_, snapshot) {
@@ -40,14 +49,15 @@ class AddCustomerView extends GetView<AddCustomerController> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const Text("Pelanggan",
-                              style: TextStyle(fontSize: 25)),
+                              style: TextStyle(fontSize: 25, color: ui.object)),
                           const SizedBox(height: 15),
                           TextField(
                             controller: controller.nameC,
                             decoration: const InputDecoration(
                               hintText: 'Input Name',
                               label: Text('Name'),
-                              labelStyle: TextStyle(fontSize: 15),
+                              labelStyle:
+                                  TextStyle(fontSize: 15, color: ui.action),
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -55,7 +65,7 @@ class AddCustomerView extends GetView<AddCustomerController> {
                             width: double.infinity,
                             child: Text(
                               "Gender",
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 15, color: ui.action),
                               textAlign: TextAlign.start,
                             ),
                           ),
@@ -77,7 +87,8 @@ class AddCustomerView extends GetView<AddCustomerController> {
                                   },
                                   child: const Text(
                                     'Laki-laki',
-                                    style: TextStyle(fontSize: 12),
+                                    style: TextStyle(
+                                        fontSize: 12, color: ui.object),
                                   ),
                                 ),
                                 Radio(
@@ -95,7 +106,8 @@ class AddCustomerView extends GetView<AddCustomerController> {
                                   },
                                   child: const Text(
                                     'Perempuan',
-                                    style: TextStyle(fontSize: 12),
+                                    style: TextStyle(
+                                        fontSize: 12, color: ui.object),
                                   ),
                                 ),
                               ],
@@ -106,7 +118,8 @@ class AddCustomerView extends GetView<AddCustomerController> {
                             decoration: const InputDecoration(
                               hintText: 'Input Address',
                               label: Text('Address'),
-                              labelStyle: TextStyle(fontSize: 15),
+                              labelStyle:
+                                  TextStyle(fontSize: 15, color: ui.action),
                             ),
                           ),
                           TextField(
@@ -114,7 +127,8 @@ class AddCustomerView extends GetView<AddCustomerController> {
                             decoration: const InputDecoration(
                               hintText: 'Input Telp',
                               label: Text('Telp'),
-                              labelStyle: TextStyle(fontSize: 15),
+                              labelStyle:
+                                  TextStyle(fontSize: 15, color: ui.action),
                             ),
                           ),
                           TextField(
@@ -122,28 +136,27 @@ class AddCustomerView extends GetView<AddCustomerController> {
                             decoration: const InputDecoration(
                               hintText: 'Input Work',
                               label: Text('Work'),
-                              labelStyle: TextStyle(fontSize: 15),
+                              labelStyle:
+                                  TextStyle(fontSize: 15, color: ui.action),
                             ),
                           ),
-                          // TextField(
-                          //   controller: controller.iuranC,
-                          //   decoration: const InputDecoration(
-                          //     hintText: 'Input Iuran',
-                          //     label: Text('Iuran'),
-                          //     labelStyle: TextStyle(fontSize: 15),
-                          //   ),
-                          // ),
                           SelectFormField(
                             controller: controller.iuranC,
+                            style: TextStyle(color: ui.action),
                             labelText: "Iuran",
                             items: item,
                           ),
                           const SizedBox(height: 10),
                           TextField(
                             controller: controller.dateC,
+                            style: TextStyle(color: ui.action),
                             decoration: const InputDecoration(
-                              icon: Icon(Icons.calendar_today),
+                              icon: Icon(
+                                Icons.calendar_today,
+                                color: ui.action,
+                              ),
                               labelText: "Tanggal Pemasangan",
+                              labelStyle: TextStyle(color: ui.object),
                             ),
                             readOnly: true,
                             onTap: () async {
@@ -165,7 +178,14 @@ class AddCustomerView extends GetView<AddCustomerController> {
                             },
                           ),
                           ElevatedButton(
-                            child: Text("Save"),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(ui.action)),
+                            child: Text(
+                              "Save",
+                              style: TextStyle(
+                                  color: ui.object, fontFamily: 'arvo'),
+                            ),
                             // onPressed: () => controller.tes(),
                             onPressed: () => controller.add(
                               controller.nameC.text,

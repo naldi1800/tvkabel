@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:tvkabel/app/utils/ui.dart';
 
 class AddBillingController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -25,23 +27,34 @@ class AddBillingController extends GetxController {
   }
 
   void getPembayaran(Timestamp date, String id) async {
-    var dt = DateFormat('yyyy-MM-dd').format(date.toDate());
+    // var dt = DateFormat('yyyy-MM-dd').format(date.toDate());
+    var dt = date.toDate();
     var now = DateTime.now();
+    var bln = Jiffy([now.year, now.month, now.day])
+        .diff(Jiffy([dt.year, dt.month, dt.day]), Units.MONTH);
+    print(bln);
+    print(dt);
+    print(now);
 
     // int t =
     //     now.millisecondsSinceEpoch - DateTime.parse(dt).millisecondsSinceEpoch;
     // var dates = t / (3600 * 24 * 12);
 
-    Duration diff = now.difference(DateTime.parse(dt));
-    int bln = (diff.inDays ~/ 30).toInt();
+    // Duration diff = now.difference(dt);
+    // // print(diff.in);
+    // int bln = (diff.inDays ~/ 30).toInt();
+    // print(bln);
     List<String> bills = [];
     for (var i = 1; i <= bln; i++) {
-      var toBill = DateTime(
-        DateTime.parse(dt).year,
-        DateTime.parse(dt).month + i,
-        DateTime.parse(dt).day,
-      );
-      bills.add(DateFormat("yyyy-MM").format(toBill));
+      var to = Jiffy([dt.year, dt.month, dt.day]).add(months: i);
+      print(to);
+      bills.add("${to.year}-${to.month}");
+      // var toBill = DateTime(
+      //   dt.year,
+      //   dt.month + i,
+      //   dt.day,
+      // );
+      // bills.add(DateFormat("yyyy-MM").format(toBill));
     }
 
     // print("${diff.inDays} Hari | $bln Bulan");
@@ -61,7 +74,7 @@ class AddBillingController extends GetxController {
           }
         }
         // print(bills[index] == blnByr);
-        // print(blnByr);
+        print(blnByr);
       });
       for (var i = 0; i < bills.length; i++) {
         item.value.add({
@@ -71,12 +84,15 @@ class AddBillingController extends GetxController {
       }
       print(item.value.map((e) => Map<String, dynamic>.from(e)).toSet());
     });
-
+    await Future.delayed(const Duration(seconds: 3));
     if (item.isEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         Get.defaultDialog(
           title: "Info",
           middleText: "Tidak ada pembayaran tersedia",
+          backgroundColor: ui.foreground,
+          titleStyle: TextStyle(color: ui.object),
+          middleTextStyle: TextStyle(color: ui.object),
           onConfirm: () {
             Get.back();
             Get.back();
@@ -100,6 +116,9 @@ class AddBillingController extends GetxController {
       Get.defaultDialog(
         title: "Success",
         middleText: "Success for adding Billing",
+        backgroundColor: ui.foreground,
+        titleStyle: TextStyle(color: ui.object),
+        middleTextStyle: TextStyle(color: ui.object),
         onConfirm: () {
           idC.clear();
           dateC.clear();
@@ -112,6 +131,9 @@ class AddBillingController extends GetxController {
       Get.defaultDialog(
         title: "Failed",
         middleText: "Failed for adding Billing!!",
+        backgroundColor: ui.foreground,
+        titleStyle: TextStyle(color: ui.object),
+        middleTextStyle: TextStyle(color: ui.object),
         onConfirm: () => Get.back(),
         textConfirm: "Ok",
       );

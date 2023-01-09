@@ -1,14 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 
 class CustomerController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late TextEditingController searchC;
+  var searchText = "".obs;
+  RxList<QueryDocumentSnapshot<Object?>> allData =
+      RxList<QueryDocumentSnapshot<Object?>>([]);
+  late List<QueryDocumentSnapshot<Object?>> allDataCostumer;
 
-  // Future<QuerySnapshot<Object?>> getData1() async {
-  //   CollectionReference costumers = firestore.collection('costumers');
-  //   return costumers.get();
-  // }
+  @override
+  void onInit() {
+    searchC = TextEditingController();
+    super.onInit();
+  }
 
   Stream<QuerySnapshot<Object?>> getData() {
     Query costumers = firestore.collection('costumers').orderBy('id');
@@ -31,5 +37,25 @@ class CustomerController extends GetxController {
     } catch (e) {
       print(e);
     }
+  }
+
+  void filter(String name) {
+    List<QueryDocumentSnapshot<Object?>> res = [];
+    if (name.isEmpty || name == "") {
+      res = allDataCostumer;
+    } else {
+      res = allData
+          .where((e) =>
+              e['name'].toString().toLowerCase().contains(name.toLowerCase()) ||
+              e['id'].toString().toLowerCase().contains(name.toLowerCase()))
+          .toList();
+    }
+    allData.value = res;
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    searchC.dispose();
   }
 }

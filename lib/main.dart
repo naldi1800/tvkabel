@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '/app/controllers/auth_controller.dart';
 import 'app/routes/app_pages.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:month_year_picker/month_year_picker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,18 +20,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "Application",
       initialRoute: Routes.SUB_MAIN, //Routes.SplashScreen
-      onReady: () {
-        //// print("Start");
-        // Future.delayed(const Duration(seconds: 3), () {
-        ////   print("End");
-        //   Get.offAllNamed(Routes.SUB_MAIN);
-        // }); // Active this for Splash Screen
-      },
-      // localizationsDelegates: const [
-      //   // GlobalWidgetsLocalizations.delegate,
-      //   // GlobalMaterialLocalizations.delegate,
-      //   // MonthYearPickerLocalizations.delegate,
-      // ],
+      supportedLocales: const [
+        Locale('en'),
+      ],
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );

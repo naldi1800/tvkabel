@@ -53,7 +53,8 @@ class BillingRecapitulationController extends GetxController {
     );
   }
 
-  Future<pw.Widget> contentPage({required QuerySnapshot<Object?> data}) async {
+  Future<pw.Widget> contentPage(BuildContext context,
+      {required QuerySnapshot<Object?> data}) async {
     var tCenter = pw.TextAlign.center;
     var tLeft = pw.TextAlign.left;
     var no = 0;
@@ -66,41 +67,42 @@ class BillingRecapitulationController extends GetxController {
           pw.Expanded(
             flex: 1,
             child: pw.Padding(
-              padding: pw.EdgeInsets.all(5),
+              padding: const pw.EdgeInsets.all(5),
               child: pw.Text('No', textAlign: tCenter),
             ),
           ),
           pw.Expanded(
             flex: 3,
             child: pw.Padding(
-              padding: pw.EdgeInsets.all(5),
+              padding: const pw.EdgeInsets.all(5),
               child: pw.Text('ID TV', textAlign: tCenter),
             ),
           ),
           pw.Expanded(
             flex: 3,
             child: pw.Padding(
-              padding: pw.EdgeInsets.all(5),
+              padding: const pw.EdgeInsets.all(5),
               child: pw.Text('Nama', textAlign: tCenter),
             ),
           ),
           pw.Expanded(
             flex: 2,
             child: pw.Padding(
-              padding: pw.EdgeInsets.all(5),
+              padding: const pw.EdgeInsets.all(5),
               child: pw.Text('Jenis', textAlign: tCenter),
             ),
           ),
           pw.Expanded(
             flex: 2,
             child: pw.Padding(
-              padding: pw.EdgeInsets.all(5),
+              padding: const pw.EdgeInsets.all(5),
               child: pw.Text('Tanggal', textAlign: tCenter),
             ),
           ),
         ],
       ),
     );
+
     //DATA
     data.docs.forEach((element) async {
       // print("Cek Element");
@@ -145,101 +147,29 @@ class BillingRecapitulationController extends GetxController {
         ),
       );
     });
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     // print(rowsData);
+    if (data.docs.isEmpty) {
+      rowsData.clear();
+      rowsData.add(
+        pw.TableRow(
+          children: [
+            pw.Expanded(
+              flex: 1,
+              child: pw.Padding(
+                padding: const pw.EdgeInsets.all(3),
+                child: pw.Text('Data Masih Kosong', textAlign: tCenter),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
     return pw.Align(
       alignment: pw.Alignment.topLeft,
       child: pw.Table(
         border: pw.TableBorder.all(),
         children: rowsData,
-        // children: [
-        //   //Header
-        //   pw.TableRow(
-        //     children: [
-        //       pw.Expanded(
-        //         flex: 1,
-        //         child: pw.Text('No', textAlign: tCenter),
-        //       ),
-        //       pw.Expanded(
-        //         flex: 3,
-        //         child: pw.Text('ID TV', textAlign: tCenter),
-        //       ),
-        //       pw.Expanded(
-        //         flex: 3,
-        //         child: pw.Text('Nama', textAlign: tCenter),
-        //       ),
-        //       pw.Expanded(
-        //         flex: 2,
-        //         child: pw.Text('Jenis', textAlign: tCenter),
-        //       ),
-        //       pw.Expanded(
-        //         flex: 2,
-        //         child: pw.Text('Tanggal', textAlign: tCenter),
-        //       ),
-        //     ],
-        //   ),
-        //   //RealData
-        //   rowsData
-        //   //OldData
-        //   // for(var i = 0; i < data.docs.length; i++)
-        //   //   // pw.TableRow(children: [])
-        //   //   //  Map<String, dynamic> dt = data.docs[i].data() as Map<String, dynamic>;
-        //   //   var x = data.docs
-        //   // ,
-        //   // ...data.docs.map(
-        //   //   (doc) {
-        //   //     Map<String, dynamic> dt = doc.data()! as Map<String, dynamic>;
-        //   //     // print("Oy");
-        //   //     no++;
-        //   //     // dataCostumer.value = getCostumer("${dt['id_customer']}");
-        //   //     return pw.TableRow(
-        //   //       children: [
-        //   //         pw.Expanded(
-        //   //           child: pw.Text("$no", textAlign: tCenter),
-        //   //         ),
-        //   //         pw.Expanded(
-        //   //           child: pw.Text("${dt['id_customer']}", textAlign: tCenter),
-        //   //         ),
-        //   //         pw.Expanded(
-        //   //           child: pw.Padding(
-        //   //             padding: const pw.EdgeInsets.only(left: 5),
-        //   //             child: pw.Text("${dt['id_CUSTOMER']}", textAlign: tLeft),
-        //   //           ),
-        //   //         ),
-        //   //         pw.Expanded(
-        //   //           child: pw.Text('Analog', textAlign: tCenter),
-        //   //         ),
-        //   //         pw.Expanded(
-        //   //           child: pw.Text('01-01-2023', textAlign: tCenter),
-        //   //         ),
-        //   //       ],
-        //   //     );
-        //   //   },
-        //   // ),
-        //   // ...data.docs.map((e) => null)
-        //   // pw.TableRow(
-        //   //   children: [
-        //   //     pw.Expanded(
-        //   //       child: pw.Text('1', textAlign: tCenter),
-        //   //     ),
-        //   //     pw.Expanded(
-        //   //       child: pw.Text('TV-000001', textAlign: tCenter),
-        //   //     ),
-        //   //     pw.Expanded(
-        //   //       child: pw.Padding(
-        //   //         padding: const pw.EdgeInsets.only(left: 5),
-        //   //         child: pw.Text('Nurul', textAlign: tLeft),
-        //   //       ),
-        //   //     ),
-        //   //     pw.Expanded(
-        //   //       child: pw.Text('Analog', textAlign: tCenter),
-        //   //     ),
-        //   //     pw.Expanded(
-        //   //       child: pw.Text('01-01-2023', textAlign: tCenter),
-        //   //     ),
-        //   //   ],
-        //   // ),
-        // ],
       ),
     );
   }
@@ -288,7 +218,7 @@ class BillingRecapitulationController extends GetxController {
       BuildContext context, QuerySnapshot<Object?> data) async {
     double widthMax = MediaQuery.of(context).size.width;
     var pdf = pw.Document();
-    var w = await contentPage(data: data);
+    var w = await contentPage(context, data: data);
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -315,7 +245,6 @@ class BillingRecapitulationController extends GetxController {
     // final bytes = await pdf.save();
     // final dir = await getApplicationDocumentsDirectory();
     // final file = File('${dir.path}/doc.pdf');
-
     // await file.writeAsBytes(bytes);
   }
 

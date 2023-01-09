@@ -19,7 +19,7 @@ class BillingRecapitulationView
         centerTitle: true,
       ),
       body: FutureBuilder(
-        future: controller.getDataWithMonth("2022-12"),
+        future: controller.getDataWithMonth(Get.arguments),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             // print(snapshot.data!.docs as List<Map<String, dynamic>>);

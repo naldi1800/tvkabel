@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tvkabel/app/routes/app_pages.dart';
+import 'package:tvkabel/app/utils/ui.dart';
 
 import '../controllers/detail_customer_controller.dart';
 
@@ -13,10 +14,18 @@ class DetailCustomerView extends GetView<DetailCustomerController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detail Pelanggan'),
+        title: const Text(
+          'Detail Pelanggan',
+          style: TextStyle(
+            fontFamily: 'arvo',
+            color: ui.object,
+          ),
+        ),
+        backgroundColor: ui.foreground,
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
+            color: ui.action,
             onPressed: () => Get.toNamed(
               Routes.EDIT_CUSTOMER,
               arguments: Get.arguments,
@@ -24,11 +33,12 @@ class DetailCustomerView extends GetView<DetailCustomerController> {
           ),
           IconButton(
             icon: Icon(Icons.delete),
+            color: ui.action,
             onPressed: () => controller.delete(Get.arguments),
           ),
         ],
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: ui.background,
       body: StreamBuilder<DocumentSnapshot<Object?>>(
         stream: controller.getData(Get.arguments),
         builder: (context, snapshot) {
@@ -54,6 +64,7 @@ class DetailCustomerView extends GetView<DetailCustomerController> {
                       SizedBox(
                           width: double.infinity,
                           child: Card(
+                            color: ui.foreground,
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
@@ -61,11 +72,17 @@ class DetailCustomerView extends GetView<DetailCustomerController> {
                                 children: [
                                   Text(
                                     "${data['name']}",
-                                    style: const TextStyle(fontSize: 30),
+                                    style: const TextStyle(
+                                        fontSize: 30,
+                                        fontFamily: 'arvo',
+                                        color: ui.object),
                                   ),
                                   Text(
                                     "Paket ${controller.paket.value['name']} - ${controller.paket.value['price']}",
-                                    style: const TextStyle(fontSize: 20),
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'arvo',
+                                        color: ui.object),
                                   ),
                                   const SizedBox(height: 15),
                                   viewDataCustomer(
@@ -96,10 +113,11 @@ class DetailCustomerView extends GetView<DetailCustomerController> {
                                         : '-',
                                   ),
                                   const SizedBox(height: 15),
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    child: const Text("Riwayat Pembayaran"),
-                                  ),
+                                  // ElevatedButton(
+                                  //   onPressed: () {},
+
+                                  //   child: const Text("Riwayat Pembayaran", style: TextStyle(fontFamily: 'arvo', color: ui.object),),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -130,7 +148,8 @@ class DetailCustomerView extends GetView<DetailCustomerController> {
           width: widthMax * 0.3,
           child: Text(
             "$ket",
-            style: TextStyle(fontSize: sizeFont),
+            style: TextStyle(
+                fontSize: sizeFont, fontFamily: 'arvo', color: ui.object),
             textAlign: TextAlign.left,
           ),
         ),
@@ -138,7 +157,8 @@ class DetailCustomerView extends GetView<DetailCustomerController> {
           width: widthMax * 0.03,
           child: Text(
             ":",
-            style: TextStyle(fontSize: sizeFont),
+            style: TextStyle(
+                fontSize: sizeFont, fontFamily: 'arvo', color: ui.object),
             textAlign: TextAlign.center,
           ),
         ),
@@ -146,7 +166,8 @@ class DetailCustomerView extends GetView<DetailCustomerController> {
           width: widthMax * 0.5,
           child: Text(
             " $data",
-            style: TextStyle(fontSize: sizeFont),
+            style: TextStyle(
+                fontSize: sizeFont, fontFamily: 'arvo', color: ui.object),
             textAlign: TextAlign.left,
           ),
         ),

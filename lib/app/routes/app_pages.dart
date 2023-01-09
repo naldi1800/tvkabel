@@ -8,6 +8,8 @@ import '../modules/add_billing/bindings/add_billing_binding.dart';
 import '../modules/add_billing/views/add_billing_view.dart';
 import '../modules/billing/bindings/billing_binding.dart';
 import '../modules/billing/views/billing_view.dart';
+import '../modules/billing_re_show/bindings/billing_re_show_binding.dart';
+import '../modules/billing_re_show/views/billing_re_show_view.dart';
 import '../modules/billing_recapitulation/bindings/billing_recapitulation_binding.dart';
 import '../modules/billing_recapitulation/views/billing_recapitulation_view.dart';
 import '../modules/customer/bindings/customer_binding.dart';
@@ -100,6 +102,11 @@ class AppPages {
       name: _Paths.BILLING_RECAPITULATION,
       page: () => const BillingRecapitulationView(),
       binding: BillingRecapitulationBinding(),
+    ),
+    GetPage(
+      name: _Paths.BILLING_RE_SHOW,
+      page: () => const BillingReShowView(),
+      binding: BillingReShowBinding(),
     ),
   ];
 }
