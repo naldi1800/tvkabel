@@ -32,33 +32,12 @@ class AddBillingController extends GetxController {
     var now = DateTime.now();
     var bln = Jiffy([now.year, now.month, now.day])
         .diff(Jiffy([dt.year, dt.month, dt.day]), Units.MONTH);
-    print(bln);
-    print(dt);
-    print(now);
-
-    // int t =
-    //     now.millisecondsSinceEpoch - DateTime.parse(dt).millisecondsSinceEpoch;
-    // var dates = t / (3600 * 24 * 12);
-
-    // Duration diff = now.difference(dt);
-    // // print(diff.in);
-    // int bln = (diff.inDays ~/ 30).toInt();
-    // print(bln);
     List<String> bills = [];
     for (var i = 1; i <= bln; i++) {
       var to = Jiffy([dt.year, dt.month, dt.day]).add(months: i);
       print(to);
       bills.add("${to.year}-${to.month}");
-      // var toBill = DateTime(
-      //   dt.year,
-      //   dt.month + i,
-      //   dt.day,
-      // );
-      // bills.add(DateFormat("yyyy-MM").format(toBill));
     }
-
-    // print("${diff.inDays} Hari | $bln Bulan");
-
     print(bills);
 
     Query bill =
@@ -73,7 +52,6 @@ class AddBillingController extends GetxController {
             bills.removeAt(i);
           }
         }
-        // print(bills[index] == blnByr);
         print(blnByr);
       });
       for (var i = 0; i < bills.length; i++) {
@@ -84,7 +62,7 @@ class AddBillingController extends GetxController {
       }
       print(item.value.map((e) => Map<String, dynamic>.from(e)).toSet());
     });
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
     if (item.isEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         Get.defaultDialog(

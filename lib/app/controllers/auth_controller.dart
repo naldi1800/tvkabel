@@ -19,6 +19,7 @@ class AuthController extends GetxController {
         password: password,
       );
       Get.offAllNamed(Routes.HOME);
+      print("ada");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

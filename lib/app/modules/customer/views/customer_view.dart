@@ -17,8 +17,13 @@ class CustomerView extends GetView<CustomerController> {
           'Data Pelanggan',
           style: TextStyle(fontFamily: 'alvo', color: ui.object),
         ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: ui.foreground,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Get.offAndToNamed(Routes.HOME),
+        ),
       ),
       backgroundColor: ui.background,
       body: Padding(

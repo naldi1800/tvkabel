@@ -19,6 +19,11 @@ class BillingView extends GetView<BillingController> {
         ),
         centerTitle: true,
         backgroundColor: ui.foreground,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Get.offAndToNamed(Routes.HOME),
+        ),
       ),
       backgroundColor: ui.background,
       body: Padding(
@@ -29,78 +34,98 @@ class BillingView extends GetView<BillingController> {
             if (snapshot.connectionState == ConnectionState.active) {
               controller.allDataCostumer = snapshot.data!.docs;
               controller.allData.value = controller.allDataCostumer;
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: controller.searchC,
-                      style:
-                          const TextStyle(fontFamily: 'arto', color: ui.object),
-                      onChanged: (value) {
-                        controller.allData.value = controller.allDataCostumer;
-                        controller.filter(value);
-                      },
-                      decoration: const InputDecoration(
-                        labelText: "Search",
-                        hintText: "id or name",
-                        labelStyle: TextStyle(color: ui.object),
-                        hintStyle: TextStyle(color: ui.object),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: ui.object,
-                        ),
-                        fillColor: ui.action,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Obx(
-                      () => ListView.separated(
-                        itemCount: controller.allData.length,
-                        separatorBuilder: (context, index) {
-                          return const Divider(color: ui.action);
-                        },
-                        itemBuilder: (context, index) {
-                          var data = controller.allData[index].data()
-                              as Map<String, dynamic>;
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              left: 10,
-                              right: 10,
-                            ),
-                            child: Container(
-                              width: double.infinity,
-                              color: ui.foreground,
-                              child: ListTile(
-                                onTap: () => Get.toNamed(
-                                  Routes.ADD_BILLING,
-                                  arguments: controller.allData[index].id,
-                                ),
-                                title: Text(
-                                  "${data['name']}",
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: 'alvo',
-                                    color: ui.object,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  "${data['id']}",
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    fontFamily: 'alvo',
-                                    color: ui.object,
-                                  ),
-                                ),
+
+              // controller.billingFilter(controller.allData.value);
+              // Future<List<QueryDocumentSnapshot<Object?>>> exp =
+              // controller.billingFilter(controller.allData.value);
+              // Future.wait(exp);
+              // Future.wait(controller.billingFilter(controller.allData.value)).then((List<QueryDocumentSnapshot<Object?>> value) => null);
+
+              // controller.filterWhereIfPayment();
+              return FutureBuilder(
+                future: controller.billingFilter(controller.allData.value),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            controller: controller.searchC,
+                            style: const TextStyle(
+                                fontFamily: 'arto', color: ui.object),
+                            onChanged: (value) {
+                              controller.allData.value =
+                                  controller.allDataCostumer;
+                              controller.filter(value);
+                            },
+                            decoration: const InputDecoration(
+                              labelText: "Search",
+                              hintText: "id or name",
+                              labelStyle: TextStyle(color: ui.object),
+                              hintStyle: TextStyle(color: ui.object),
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: ui.object,
                               ),
+                              fillColor: ui.action,
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Obx(
+                            () => ListView.separated(
+                              itemCount: controller.allData.length,
+                              separatorBuilder: (context, index) {
+                                return const Divider(color: ui.action);
+                              },
+                              itemBuilder: (context, index) {
+                                var data = controller.allData[index].data()
+                                    as Map<String, dynamic>;
+                                controller.get(data['date'], data['id']);
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 10,
+                                    right: 10,
+                                  ),
+                                  child: Container(
+                                    width: double.infinity,
+                                    color: ui.foreground,
+                                    child: ListTile(
+                                      onTap: () => Get.toNamed(
+                                        Routes.ADD_BILLING,
+                                        arguments: controller.allData[index].id,
+                                      ),
+                                      title: Text(
+                                        "${data['name']}",
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: 'alvo',
+                                          color: ui.object,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        "${data['id']}",
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'alvo',
+                                          color: ui.object,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+
+                    // return const Center(child: CircularProgressIndicator());
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                },
               );
             }
             return const Center(child: CircularProgressIndicator());

@@ -53,11 +53,15 @@ class AddCustomerView extends GetView<AddCustomerController> {
                           const SizedBox(height: 15),
                           TextField(
                             controller: controller.nameC,
+                            style:
+                                TextStyle(fontFamily: 'arvo', color: ui.object),
                             decoration: const InputDecoration(
                               hintText: 'Input Name',
                               label: Text('Name'),
                               labelStyle:
                                   TextStyle(fontSize: 15, color: ui.action),
+                              hintStyle:
+                                  TextStyle(fontSize: 15, color: ui.object),
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -115,26 +119,38 @@ class AddCustomerView extends GetView<AddCustomerController> {
                           ),
                           TextField(
                             controller: controller.addressC,
+                            style:
+                                TextStyle(fontFamily: 'arvo', color: ui.object),
                             decoration: const InputDecoration(
                               hintText: 'Input Address',
                               label: Text('Address'),
                               labelStyle:
                                   TextStyle(fontSize: 15, color: ui.action),
+                              hintStyle:
+                                  TextStyle(fontSize: 15, color: ui.object),
                             ),
                           ),
                           TextField(
                             controller: controller.hpC,
+                            style:
+                                TextStyle(fontFamily: 'arvo', color: ui.object),
                             decoration: const InputDecoration(
                               hintText: 'Input Telp',
                               label: Text('Telp'),
                               labelStyle:
                                   TextStyle(fontSize: 15, color: ui.action),
+                              hintStyle:
+                                  TextStyle(fontSize: 15, color: ui.object),
                             ),
                           ),
                           TextField(
                             controller: controller.workC,
+                            style:
+                                TextStyle(fontFamily: 'arvo', color: ui.object),
                             decoration: const InputDecoration(
                               hintText: 'Input Work',
+                              hintStyle:
+                                  TextStyle(fontSize: 15, color: ui.object),
                               label: Text('Work'),
                               labelStyle:
                                   TextStyle(fontSize: 15, color: ui.action),

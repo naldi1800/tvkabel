@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "847329561775",
+    "project_id": "new-tv-84525",
+    "storage_bucket": "new-tv-84525.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847329561775:android:179d38d19c01978b4bd85a",
+        "android_client_info": {
+          "package_name": "com.example.tvkabel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "847329561775-olk1i32pnivfpd8sgs5cdee7eaa4pkt1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCICixGt6Ji4_YAYHEjAbza3KJXH2-D-sI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "847329561775-olk1i32pnivfpd8sgs5cdee7eaa4pkt1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

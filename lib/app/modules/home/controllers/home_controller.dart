@@ -25,6 +25,7 @@ class HomeController extends GetxController {
     billing.get().then(
       (value) {
         m.value = value.size;
+        print(value.size);
       },
     );
     // return costumers.snapshots();
@@ -48,12 +49,12 @@ class HomeController extends GetxController {
       "icon": Icons.payment,
     },
     {
-      "title": "Riwayat",
-      "icon": Icons.history,
-    },
-    {
       "title": "Semua Penagihan",
       "icon": Icons.payments,
+    },
+    {
+      "title": "Riwayat",
+      "icon": Icons.history,
     },
     {
       "title": "Tentang",
@@ -77,12 +78,12 @@ class HomeController extends GetxController {
           Get.toNamed(Routes.BILLING);
         }
         break;
-      case 2:
+      case 3:
         {
           Get.toNamed(Routes.HISTORY);
         }
         break;
-      case 3:
+      case 2:
         {
           Get.defaultDialog(
             title: "Select Month",
@@ -131,11 +132,11 @@ class HomeController extends GetxController {
               ],
             ),
           );
-          var my = await SimpleMonthYearPicker.showMonthYearPickerDialog(
-            context: context,
-            barrierDismissible: true,
-          );
-          my = DateFormat("yyyy-MM").format(my);
+          // var my = await SimpleMonthYearPicker.showMonthYearPickerDialog(
+          //   context: context,
+          //   barrierDismissible: true,
+          // );
+          // my = DateFormat("yyyy-MM").format(my);
         }
         break;
       case 4:

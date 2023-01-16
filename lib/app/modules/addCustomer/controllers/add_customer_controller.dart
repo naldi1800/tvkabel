@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:tvkabel/app/utils/ui.dart';
 
 class AddCustomerController extends GetxController {
   late TextEditingController nameC;
@@ -92,6 +93,9 @@ class AddCustomerController extends GetxController {
         Get.defaultDialog(
           title: "Success",
           middleText: "Success for adding Costumer",
+          backgroundColor: ui.foreground,
+          titleStyle: TextStyle(color: ui.object),
+          middleTextStyle: TextStyle(color: ui.object),
           onConfirm: () {
             nameC.clear();
             genderC.clear();

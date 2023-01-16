@@ -12,6 +12,7 @@ import 'package:printing/printing.dart';
 
 class BillingRecapitulationController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  var total = 0;
   // var dataCostumer = {}.obs;
   pw.Widget headerPage() {
     // final image = await networkImage("https://picsum.photos/id/1/200/300");
@@ -53,8 +54,11 @@ class BillingRecapitulationController extends GetxController {
     );
   }
 
-  Future<pw.Widget> contentPage(BuildContext context,
-      {required QuerySnapshot<Object?> data}) async {
+  Future<pw.Widget> contentPage(
+    BuildContext context,
+    String bln, {
+    required QuerySnapshot<Object?> data,
+  }) async {
     var tCenter = pw.TextAlign.center;
     var tLeft = pw.TextAlign.left;
     var no = 0;
@@ -72,7 +76,7 @@ class BillingRecapitulationController extends GetxController {
             ),
           ),
           pw.Expanded(
-            flex: 3,
+            flex: 2,
             child: pw.Padding(
               padding: const pw.EdgeInsets.all(5),
               child: pw.Text('ID TV', textAlign: tCenter),
@@ -96,7 +100,21 @@ class BillingRecapitulationController extends GetxController {
             flex: 2,
             child: pw.Padding(
               padding: const pw.EdgeInsets.all(5),
-              child: pw.Text('Tanggal', textAlign: tCenter),
+              child: pw.Text('Tanggal Pemasangan', textAlign: tCenter),
+            ),
+          ),
+          pw.Expanded(
+            flex: 2,
+            child: pw.Padding(
+              padding: const pw.EdgeInsets.all(5),
+              child: pw.Text('Tanggal Pembayaran', textAlign: tCenter),
+            ),
+          ),
+          pw.Expanded(
+            flex: 2,
+            child: pw.Padding(
+              padding: const pw.EdgeInsets.all(5),
+              child: pw.Text('Harga', textAlign: tCenter),
             ),
           ),
         ],
@@ -104,16 +122,21 @@ class BillingRecapitulationController extends GetxController {
     );
 
     //DATA
+    total = 0;
     data.docs.forEach((element) async {
-      // print("Cek Element");
+      print("Cek Element");
       var dt = element.data() as Map<String, dynamic>;
-      Map<String, dynamic> dtCostumer =
-          await getCostumer("${dt['id_customer']}");
-      Map<String, dynamic> dtPacket = await getPacket("${dtCostumer['iuran']}");
+      // Map<String, dynamic> dtCostumer =
+      //     await getCostumer("${dt['id_customer']}");
+      Map<String, dynamic> dtBilling = await getDataWithMonth(bln, dt['id']);
+      Map<String, dynamic> dtPacket = await getPacket("${dt['iuran']}");
       DateTime d = DateTime.now();
       if (dt['tanggal_pembayaran'] != null) {
         Timestamp t = dt['tanggal_pembayaran'];
         d = t.toDate();
+      }
+      if (dtBilling['tanggal_pembayaran'] != null) {
+        total += int.parse(dtPacket['price'].toString());
       }
       no++;
 
@@ -125,29 +148,88 @@ class BillingRecapitulationController extends GetxController {
               child: pw.Text("$no", textAlign: tCenter),
             ),
             pw.Expanded(
-              child: pw.Text("${dtCostumer['id']}", textAlign: tCenter),
+              child: pw.Text("${dt['id']}", textAlign: tCenter),
             ),
             pw.Expanded(
               child: pw.Padding(
                 padding: const pw.EdgeInsets.only(left: 5),
-                child: pw.Text("${dtCostumer['name']}", textAlign: tLeft),
+                child: pw.Text("${dt['name']}", textAlign: tLeft),
               ),
             ),
             pw.Expanded(
               child: pw.Text("${dtPacket['name']}", textAlign: tCenter),
             ),
             pw.Expanded(
+              // child: pw.Text("as"),
               child: pw.Text(
-                  dt['tanggal_pembayaran'] != null
+                  dt['date'] != null ? DateFormat('yyyy-MM-dd').format(d) : '-',
+                  textAlign: tCenter),
+            ),
+            pw.Expanded(
+              // child: pw.Text("as"),
+              child: pw.Text(
+                  dtBilling['tanggal_pembayaran'] != null
                       ? DateFormat('yyyy-MM-dd').format(d)
                       : '-',
+                  textAlign: tCenter),
+            ),
+            pw.Expanded(
+              child: pw.Text(
+                  (dtBilling['tanggal_pembayaran'] != null)
+                      ? "${dtPacket['price']}"
+                      : "-",
                   textAlign: tCenter),
             ),
           ],
         ),
       );
     });
+
     await Future.delayed(const Duration(seconds: 2));
+    // rowsData.add(
+    //   pw.TableRow(
+    //     children: [
+    //       pw.Expanded(
+    //         flex: 9,
+    //         child: pw.Padding(
+    //           padding: const pw.EdgeInsets.all(3),
+    //           child: pw.Text('Total', textAlign: tCenter),
+    //         ),
+    //       ),
+    //       pw.Expanded(
+    //         child: pw.Padding(
+    //           padding: const pw.EdgeInsets.all(3),
+    //           child: pw.Text('', textAlign: tCenter),
+    //         ),
+    //       ),
+    //       pw.Expanded(
+    //         child: pw.Padding(
+    //           padding: const pw.EdgeInsets.all(3),
+    //           child: pw.Text('', textAlign: tCenter),
+    //         ),
+    //       ),
+    //       pw.Expanded(
+    //         child: pw.Padding(
+    //           padding: const pw.EdgeInsets.all(3),
+    //           child: pw.Text('', textAlign: tCenter),
+    //         ),
+    //       ),
+    //       pw.Expanded(
+    //         child: pw.Padding(
+    //           padding: const pw.EdgeInsets.all(3),
+    //           child: pw.Text('', textAlign: tCenter),
+    //         ),
+    //       ),
+    //       pw.Expanded(
+    //         child: pw.Padding(
+    //           padding: const pw.EdgeInsets.all(3),
+    //           child: pw.Text('', textAlign: tCenter),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
+
     // print(rowsData);
     if (data.docs.isEmpty) {
       rowsData.clear();
@@ -214,11 +296,68 @@ class BillingRecapitulationController extends GetxController {
     );
   }
 
+  String GetBulan(int i) {
+    var bln = "";
+    switch (i) {
+      case 1:
+        bln = "Januari";
+        break;
+
+      case 2:
+        bln = "Februari";
+        break;
+
+      case 3:
+        bln = "Maret";
+        break;
+
+      case 4:
+        bln = "April";
+        break;
+
+      case 5:
+        bln = "Mei";
+        break;
+
+      case 6:
+        bln = "Juni";
+        break;
+
+      case 7:
+        bln = "Juli";
+        break;
+
+      case 8:
+        bln = "Agustus";
+        break;
+
+      case 9:
+        bln = "September";
+        break;
+
+      case 10:
+        bln = "Oktober";
+        break;
+
+      case 11:
+        bln = "November";
+        break;
+
+      case 12:
+        bln = "Desember";
+        break;
+    }
+    return bln;
+  }
+
   Future<Uint8List> getPDF(
-      BuildContext context, QuerySnapshot<Object?> data) async {
+      BuildContext context, QuerySnapshot<Object?> data, String blnbyr) async {
+    // var i =
+    var bln = GetBulan(int.parse(Get.arguments.split("-")[1]));
+    // print();
     double widthMax = MediaQuery.of(context).size.width;
     var pdf = pw.Document();
-    var w = await contentPage(context, data: data);
+    var w = await contentPage(context, blnbyr, data: data);
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -230,11 +369,13 @@ class BillingRecapitulationController extends GetxController {
               children: [
                 headerPage(),
                 pw.SizedBox(height: 20),
-                infoPage(widthMax: widthMax, ket: "Bulan", data: "January"),
+                infoPage(widthMax: widthMax, ket: "Bulan", data: "$bln"),
                 pw.SizedBox(height: 5),
-                infoPage(widthMax: widthMax, ket: "Jenis", data: "Analog"),
+                infoPage(
+                    widthMax: widthMax, ket: "Jenis", data: "Analog & Dialog"),
                 pw.SizedBox(height: 15),
                 w,
+                infoPage(widthMax: widthMax, ket: "Total", data: "$total")
               ],
             ),
           );
@@ -248,9 +389,25 @@ class BillingRecapitulationController extends GetxController {
     // await file.writeAsBytes(bytes);
   }
 
-  Future<QuerySnapshot<Object?>> getDataWithMonth(String month) {
-    Query costumers =
-        firestore.collection('billings').where("bulan_bayar", isEqualTo: month);
+  Future<Map<String, dynamic>> getDataWithMonth(String month, String id) async {
+    Map<String, dynamic> data = {};
+    Query costumers = firestore
+        .collection('billings')
+        .where("bulan_bayar", isEqualTo: month)
+        .where("id_customer", isEqualTo: id);
+    await costumers.get().then(
+          (value) => value.docs.forEach(
+            (element) {
+              data = element.data() as Map<String, dynamic>;
+            },
+          ),
+        );
+    // print(data);
+    return data;
+  }
+
+  Future<QuerySnapshot<Object?>> getData() {
+    Query costumers = firestore.collection('costumers').orderBy('id');
     return costumers.get();
   }
 
@@ -258,6 +415,21 @@ class BillingRecapitulationController extends GetxController {
     Map<String, dynamic> data = {};
     Query costumers =
         firestore.collection('costumers').where("id", isEqualTo: docID);
+    await costumers.get().then(
+          (value) => value.docs.forEach(
+            (element) {
+              data = element.data() as Map<String, dynamic>;
+            },
+          ),
+        );
+    // print(data);
+    return data;
+  }
+
+  Future<Map<String, dynamic>> getBilling(String bulan) async {
+    Map<String, dynamic> data = {};
+    Query costumers =
+        firestore.collection('billings').where("bulan_bayar", isEqualTo: bulan);
     await costumers.get().then(
           (value) => value.docs.forEach(
             (element) {
