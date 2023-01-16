@@ -24,6 +24,11 @@ class BillingController extends GetxController {
     return costumers.snapshots();
   }
 
+  Stream<QuerySnapshot<Object?>> getDataBilling() {
+    Query costumers = firestore.collection('billings');
+    return costumers.snapshots();
+  }
+
   void filter(String name) {
     List<QueryDocumentSnapshot<Object?>> res = [];
     if (name.isEmpty || name == "") {
@@ -38,21 +43,27 @@ class BillingController extends GetxController {
     allData.value = res;
   }
 
-  Future<void> billingFilter(List<QueryDocumentSnapshot<Object?>> list) async {
+  void billingFilter() async {
+    var list = allDataCostumer;
     List<QueryDocumentSnapshot<Object?>> res = [];
+    // print(list.isEmpty);
     if (list.isEmpty) {
       res = allDataCostumer;
     } else {
       for (var i = 0; i < list.length; i++) {
         var map = list[i].data() as Map<String, dynamic>;
-        // await Future.delayed(Duration(seconds: 2));
         bool cek = await get(map['date'], map['id']);
+        print(cek);
         if (cek) {
           res.add(list[i]);
         }
       }
     }
+    // print(res);
+    await Future.delayed(Duration(seconds: 2));
     allData.value = res;
+    // // print(res);
+    // return res;
   }
 
   void filterWhereIfPayment() {
@@ -84,9 +95,10 @@ class BillingController extends GetxController {
     QuerySnapshot cek = await firestore
         .collection("billings")
         .where('id_customer', isEqualTo: id)
-        .where('bulan_bayar', whereIn: bills).get();
+        .get();
+
     int res = cek.docs.length;
-    return res == 0;
+    return res != bills.length;
     // print(cek);
   }
 
